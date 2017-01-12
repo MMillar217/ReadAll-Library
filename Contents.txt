@@ -1,0 +1,15 @@
+Implemented: 
+		CRUD - Books
+		View book details
+		Post reviews
+		view all reviews
+		Home page shows newest books
+		Ajax implemented for leaving reviews
+		Roles implemented for staff and customers
+		Stock added
+		Payment
+		Shopping cart saves sessions
+		First name and last name added for customers
+		Payment Entity Added
+		Stripe Added
+		Card Number and expiry date saved

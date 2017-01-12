@@ -1,0 +1,54 @@
+﻿@model ReadAllLibrary.Models.Fine
+
+@{
+    ViewBag.Title = "FinePaymentConfirmation";
+}
+
+<h2>Fine Payment Confirmation</h2>
+
+<dl class="dl-horizontal"></dl>
+<dt>
+    Fine Id
+</dt>
+<dd>
+    @Html.DisplayFor(m => m.FineId)
+</dd>
+<dt>
+    Date Issued
+</dt>
+<dd>
+    @Html.DisplayFor(m => m.Issued)
+</dd>
+<dt>
+    Date Paid
+</dt>
+<dd>
+    @Html.DisplayFor(m => m.Paid)
+</dd>
+<dt>
+    Amount
+</dt>
+<dd>
+    @Html.DisplayFor(m => m.Amount)
+</dd>
+<dt>
+    Payment Method
+</dt>
+@if (Model.payment.PaymentMethod == 0)
+{
+<dd>
+   Paid by card
+</dd>
+}
+@if (Convert.ToInt32(Model.payment.PaymentMethod) == 1)
+{
+    <dd>
+        Paid with paypal
+    </dd>
+}
+
+
+<br />
+
+@Html.ActionLink("Home", "Index", "Home")
+

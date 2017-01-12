@@ -1,0 +1,124 @@
+﻿@model PagedList.IPagedList<ReadAllLibrary.Models.Order>
+@{
+    ViewBag.Title = "ViewAllActiveOrders";
+
+}
+
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+<h2>All Active Orders</h2>
+
+@if (TempData["FineMessage"] != null)
+{
+<div style="color:red" id="update-message">@TempData["FineMessage"].ToString()</div>
+}
+@if (TempData["ReturnedMessage"] != null)
+{
+    <p style="color:red">@TempData["ReturnedMessage"].ToString();</p>
+}
+@using (Html.BeginForm())
+            {
+    <p>
+        Find Order by Order Status: @Html.TextBox("OrderStatusSearch")
+        <input type="submit" value="Search" />
+    </p>
+}
+
+@using (Html.BeginForm())
+            {
+    <p>
+        Find User by Username:      @Html.TextBox("SearchString")
+        <input type="submit" value="Search" />
+    </p>
+}
+
+
+
+<table class="table">
+    <tr>
+
+        <th>
+            OrderId
+        </th>
+        <th>
+           Username
+        </th>
+        <th>
+            Order Date
+        </th>
+        <th>
+            Return Date
+        </th>
+
+        <th>
+            Total
+        </th>
+        <th>
+            Order Status
+        </th>
+
+
+
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr id="row-@item.OrderId">
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReturnDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Total)
+            </td>
+            @switch (item.OrderStatus)
+            {
+                case 1:
+                    <td>
+                        Active
+                    </td>
+                    break;
+                case 2:
+                    <td>
+                        Fine issued
+                       
+                    </td>
+                    break;
+                case 3:
+                    <td>
+                        Fine to be issued
+                    </td>
+                    break;
+                case 5:
+                    <td>
+                       Fine paid - still to be returned
+                    </td>
+                    break;
+            }
+            
+            <td>
+                @Html.ActionLink("Mark  as returned", "MarkOrderAsReturnedView", new { id = item.OrderId }, null)
+             </td>
+            
+
+
+
+        </tr>
+    }
+
+</table>
+<div>
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+    @Html.PagedListPager(Model, page => Url.Action("ViewAllActiveOrders",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+</div>

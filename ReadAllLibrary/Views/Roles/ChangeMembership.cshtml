@@ -1,0 +1,75 @@
+﻿@model ReadAllLibrary.Models.ApplicationUser
+@{
+    ViewBag.Title = "Change Membership";
+}
+
+<h2>Change Membership</h2>
+
+
+<h3>Are you sure you want to change membership?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.HiddenFor(model => model.Id)
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LName)
+        </dd>
+
+        <dt>
+            Membership
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Role)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm("ChangeMembershipPost", "Roles", new { id = Model.Id }, FormMethod.Post, null))
+    {
+        @Html.AntiForgeryToken()
+
+        if (Model.Role.Equals("Unlimited Member"))
+        {
+            <div class="form-actions no-color">
+                <input type="submit" value="Change to limited" class="btn btn-default" />
+
+            </div>
+        }
+    }
+
+
+        @using (Html.BeginForm("ChangeMembershipPost", "Roles", new { id = Model.Id }, FormMethod.Post, null))
+        {
+            @Html.AntiForgeryToken()
+
+            if (Model.Role.Equals("Limited Member"))
+            {
+            <div class="form-actions no-color">
+                <input type="submit" value="Change to Unlimited" class="btn btn-default" />
+
+            </div>
+                }
+            }
+
+</div>

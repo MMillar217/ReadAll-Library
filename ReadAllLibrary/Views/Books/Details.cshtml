@@ -1,0 +1,192 @@
+﻿ @model ReadAllLibrary.ViewModels.PartialTestViewModel
+
+<head>
+
+    <script type="text/javascript"
+            src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    
+  
+    <script type="text/javascript">
+ 
+        $(document).ready(function () {
+            $(".flip").click(function () {
+                var link = $(this);
+                $(".panel").slideToggle("fast", function () {
+
+                    if ($(this).is(':visible')) {
+                        link.text('Click Here To Hide Reviews ▲');
+                    } else {
+                        link.text('Click Here To See Most Recent Reviews ▼');
+                    }
+                });
+
+            });
+        });
+           
+      
+
+    </script>
+
+
+ 
+
+    <style type="text/css">
+        div.panel {
+          
+  min-height: 20px;
+  padding: 19px;
+  margin-bottom: 20px;
+  background-color: #fff;
+  border: 1px solid #e3e3e3;
+  border-radius: 4px;
+   display: none;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+       
+
+     
+         p.flip{
+            margin: 0px;
+            padding: 5px;
+            color: forestgreen;
+            text-align: center;
+            border: solid 1px #fff;
+        }
+
+     
+    </style>
+
+
+
+</head>
+<!-- Page Content -->
+<div class="container">
+
+    @Html.HiddenFor(model => model.book.BookId)
+    <div class="row">
+        
+        <div class="col-md-3">
+            <p class="lead">ReadAll Library</p>
+
+            <h4>Categories</h4>
+            <div class="list-group">
+
+                @Html.ActionLink("Paperback", "Index", "Books", new { categoryFilter = 0 }, new { @class = "list-group-item" })
+                @Html.ActionLink("Hardback", "Index", "Books", new { categoryFilter = 1 }, new { @class = "list-group-item" })
+                @Html.ActionLink("Audio Book", "Index", "Books", new { categoryFilter = 2 }, new { @class = "list-group-item" })
+                @Html.ActionLink("eBook", "Index", "Books", new { categoryFilter = 3 }, new { @class = "list-group-item" })
+
+            </div>
+        </div>
+
+        <div class="col-md-9">
+
+            <div class="thumbnail">
+                <img class="img-responsive" src="@Model.book.ArtworkURL" alt="">
+                <div class="caption-full">
+                    
+                    @{ string stockMessage = ""; string textColour = "";}
+
+                    @if (Model.book.StockLevel > 0) { stockMessage = Model.book.StockLevel + " Available"; textColour = "forestgreen"; }
+                    else
+                    {
+                        stockMessage = "Currently out of stock, Add to cart to reserve"; textColour = "red";
+                    }
+                     <h4 class="pull-right" style="color:@textColour;">@stockMessage</h4>
+                    <h4>
+                   
+
+                        <a href="#">@Model.book.BookTitle</a>
+                    </h4>
+                    <p>@Model.book.Description <br> @Model.book.Author </p>
+
+                </div>
+                <div class="ratings">
+                  <p class="pull-right" style="color:forestgreen"> @Model.ReviewCount @Html.ActionLink(" Reviews", "Index", "Review",
+new { id = Model.book.BookId }, new { @style = "color:forestgreen" })</p>
+                        <br>
+                        <br>
+              @if (!User.Identity.Name.Equals(""))
+              {
+              if (Model.user.AccountRestricted == false || (User.IsInRole("SuperAdmin") || User.IsInRole("Manager") || User.IsInRole("Bookings Clerk") || User.IsInRole("Membership Clerk")))
+              {
+                        <p class=" pull-right">
+                            Add To Cart
+                            <a href="@Url.Action("AddToCart", "ShoppingCart", new { id = Model.book.BookId })"
+           class="btn btn-danger btn-circle btn-lg"><i class="glyphicon glyphicon-plus"></i></a>
+                       </p>
+              }
+              else
+              {
+                  <p style="color:red">Your account is restricted, please pay outstanding fines.</p>
+                  }
+              }
+              else
+              {
+                <p class=" pull-right">
+                    Add To Cart
+                    <a href="@Url.Action("AddToCart", "ShoppingCart", new { id = Model.book.BookId })"
+                       class="btn btn-danger btn-circle btn-lg"><i class="glyphicon glyphicon-plus"></i></a>
+                </p>
+              }
+             
+         <p style="color:red">@TempData["AlreadyInCart"].ToString() </p>
+
+                        @{ int s = Model.AvgStars;
+                                int rest = 5 - s;
+
+                                for (int i = 0; i < s; i++)
+                                {
+
+                                <span class="glyphicon glyphicon-star"></span>
+
+
+                            }
+
+                            for (int i = 0; i < rest; i++)
+                            {
+                                <span class="glyphicon glyphicon-star-empty"></span>
+                            }
+                        }
+                   
+                  
+
+                    @if (TempData["AvgStars"] == null)
+                    {
+                        <p>
+
+                            @Model.AvgStars stars
+                        </p>
+                    }
+                    else
+                    { 
+                        <p>
+
+                            @ViewContext.Controller.TempData["AvgStars"].ToString() stars
+                        </p>
+                    }
+</div>
+
+                <br>
+            </div>
+
+
+
+                <br>
+            <p class="flip" onmouseover="" style="cursor: pointer;">Click Here To See Most Recent Reviews ▼</p>
+                <div id="partial" class="panel">
+            @Html.Partial("~/Views/Shared/_ReviewPartial.cshtml", Model)
+                </div>
+                
+        </div>
+       
+
+       
+      
+
+    </div>
+
+</div>
+
+

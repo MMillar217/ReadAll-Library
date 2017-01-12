@@ -1,0 +1,78 @@
+﻿@model ReadAllLibrary.ViewModels.CustomerReportViewModel
+@{
+    ViewBag.Title = "CustomerReport";
+}
+
+<br />
+<br />
+
+<h2>Customer Report</h2>
+
+<dl class = "dl-horizontal"></dl>
+
+<dt>
+    First Name
+</dt>
+<dd>
+    @Model.FirstName
+</dd>
+<dt>
+    Last Name
+</dt>
+<dd>
+    @Model.LastName
+</dd>
+<dt>
+    Username
+</dt>
+<dd>
+    @Model.Username
+</dd>
+<dt>
+    Address
+</dt>
+<dd>
+    @Model.Address
+</dd>
+<dt>
+    City
+</dt>
+<dd>
+    @Model.City
+</dd>
+<dt>
+    Post code
+</dt>
+<dd>
+    @Model.Postcode
+</dd>
+
+
+<dt>
+    Number of fines
+</dt>
+<dd>
+    @Model.NumberOfFines
+</dd>
+<dt>
+    Order Count
+</dt>
+<dd>
+    @Model.OrderCount
+</dd>
+<dt>
+    Total spent on orders
+</dt>
+<dd>
+    @Model.TotalSpent
+</dd>
+
+<br />
+
+
+
+@using (Html.BeginForm("GenerateCustomerPDF", "Manager", new { username = Model.Username }))
+{
+
+    <button class="btn-btn-primary">Export to PDF</button>
+}

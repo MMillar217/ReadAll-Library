@@ -1,0 +1,3 @@
+[0322/093351:ERROR:crash_report_database_win.cc(549)] CreateDirectory C:\Users\30154296\AppData\Local\Google\Chrome\User Data\Crashpad: The system cannot find the path specified. (0x3)
+[0322/093351:ERROR:registration_protocol_win.cc(82)] TransactNamedPipe: The pipe has been ended. (0x6D)
+[0322/093351:ERROR:crash_report_database_win.cc(549)] CreateDirectory C:\Users\30154296\AppData\Local\Google\Chrome\User Data\Crashpad: The system cannot find the path specified. (0x3)

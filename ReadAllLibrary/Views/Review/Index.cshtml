@@ -1,0 +1,53 @@
+﻿@model IEnumerable<ReadAllLibrary.Models.Review>
+
+@{ string title = ViewBag.Title;}
+
+<br>
+<br>
+<h2>Reviews for <em>@title</em></h2>
+
+<hr/>
+
+    <div class="panel">
+
+    @if (Model.Any())
+    {
+        foreach (var item in Model)
+        {
+            <div class="panel">
+                <div class="col-md-12">
+                    @{
+                        if (item.stars == 0)
+                        {
+                            int stars = 3;
+                            int rest = 5 - stars;
+
+                            for (int i = 0; i < stars; i++)
+                            {
+                                <span class="glyphicon glyphicon-star"></span>
+                            }
+
+                            for (int i = 0; i < rest; i++)
+                            {
+                                <span class="glyphicon glyphicon-star-empty"></span>
+                            }
+
+                        }
+
+                    }
+                    @item.Author
+                    <span class="pull-right">@item.CreatedAt</span>
+                    <p>@item.Body</p>
+                </div>
+
+                
+
+            </div>
+
+            <hr/>
+                            }
+                        }
+        </div>
+
+
+

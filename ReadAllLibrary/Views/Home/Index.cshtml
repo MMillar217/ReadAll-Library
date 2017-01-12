@@ -1,0 +1,152 @@
+﻿@model IEnumerable<ReadAllLibrary.ViewModels.HomePageViewModel>
+
+@{
+    ViewBag.Title = "Home Page";
+    
+}
+
+
+
+<div class="container">
+
+    <div class="row">
+        
+        <div class="col-md-3">
+            <p class="lead">ReadAll Library</p>
+
+            <h4>Categories</h4>
+            <div class="list-group">
+                
+                    @Html.ActionLink("Paperback","Index","Books", new { categoryFilter = 0 }, new  { @class = "list-group-item"})
+                    @Html.ActionLink("Audio Book", "Index", "Books", new { categoryFilter = 1 }, new { @class = "list-group-item" })
+                    @Html.ActionLink("eBook", "Index", "Books", new { categoryFilter = 2 }, new { @class = "list-group-item" })
+                
+</div>
+
+            <h4>Genres</h4>
+            <div class="list-group">
+
+                @Html.ActionLink("Horror", "Index", "Books", new { genreFilter = 0 }, new { @class = "list-group-item" })
+                @Html.ActionLink("SciFi", "Index", "Books", new { genreFilter = 1 }, new { @class = "list-group-item" })
+                @Html.ActionLink("Factual", "Index", "Books", new { genreFilter = 2 }, new { @class = "list-group-item" })
+                @Html.ActionLink("Mystery", "Index", "Books", new { genreFilter = 3 }, new { @class = "list-group-item" })
+                @Html.ActionLink("Fantasy", "Index", "Books", new { genreFilter = 4 }, new { @class = "list-group-item" })
+                @Html.ActionLink("Romance", "Index", "Books", new { genreFilter = 5 }, new { @class = "list-group-item" })
+                @Html.ActionLink("Educational", "Index", "Books", new { genreFilter = 6 }, new { @class = "list-group-item" })
+
+            </div>
+        </div>
+
+        <div class="col-md-9">
+
+            <div class="row carousel-holder">
+
+                <div class="col-md-12">
+                    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                        <ol class="carousel-indicators">
+                            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                        </ol>
+                        <div class="carousel-inner">
+                            <div class="item active">
+                                <img class="slide-image" src="@Url.Content("~/img/image1.jpg")" alt="">
+                            </div>
+                            <div class="item">
+                                <img class="slide-image" src="@Url.Content("~/img/image2.jpg")" alt="">
+                            </div>
+                            <div class="item">
+                                <img class="slide-image" src="@Url.Content("~/img/image1.jpg")" alt="">
+                            </div>
+                        </div>
+                        <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left"></span>
+                        </a>
+                        <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                        </a>
+                    </div>
+                </div>
+
+                
+                <hr/>
+            </div>
+
+            <div class="row">
+
+                <h4 style="color:forestgreen"><b><i>New Arrivals</i></b></h4>
+
+                @if (Model != null)
+                {
+
+                    foreach (var r in Model.OrderByDescending(r => r.Added).Take(6))
+                    {
+
+                        int avgstars = 0;
+                        int totalStars = 0;
+
+                        foreach(var z in r.book.Reviews)
+                        {
+                            totalStars += z.stars;
+                        }
+
+                        if(r.ReviewsCount > 0)
+                        {
+                            avgstars = totalStars / r.ReviewsCount;
+                        }
+
+
+                        <div class="col-sm-6 col-lg-6 col-md-6">
+                            <div class="thumbnail">
+                                <img src=@r.ArtworkURL alt="">
+                                <div class="caption">
+                                    @if (r.book.StockLevel > 0)
+                                    {
+                                    <h4 class="pull-right" style="color:forestgreen">Available</h4>
+                                    }
+                                    else
+                                    {
+                                    <h4 class="pull-right" style="color:red">Reserve</h4>
+
+                                    }
+                                    <h4>
+                                        @Html.ActionLink(r.BookTitle, "Details", "Books", new { id = r.BookId }, null)
+                                    </h4>
+                                    <p>@r.Description...</p>
+                                    <h4 class="pull-right" style="color:forestgreen">@r.ReviewsCount Reviews</h4>
+                                </div>
+                                <div class="ratings">
+                                    <p class="pull-right"></p>
+                                    <p>
+                                   @for (int i = 0; i < avgstars; i++)
+                                   {
+                                            <span class="glyphicon glyphicon-star"></span>
+                                   }
+                                   @{int s = avgstars;  int rest = 5 - s;
+                                       for (int i = 0; i < rest; i++)
+                                       {
+                                        <span class="glyphicon glyphicon-star-empty"></span>
+                                           }
+                                       }
+                                    </p>
+                                </div>
+                            </div>
+
+                        </div>
+
+                       
+
+
+                    }
+
+                }
+            </div>
+
+
+
+        </div>
+
+    </div>
+
+</div>
+

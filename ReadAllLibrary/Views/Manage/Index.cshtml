@@ -1,0 +1,141 @@
+﻿@model ReadAllLibrary.Models.IndexViewModel
+@{
+    ViewBag.Title = "Manage";
+}
+
+
+@if (Convert.ToBoolean(TempData["HasFines"]) == true)
+{
+    <p style="color:red"><strong>Your account has been restricted due to unpaid fines. Please pay these fines to activate your account</strong></p>
+    @Html.ActionLink("Pay Fine", "PayFineView", "Manage", new {id = Model.user.Id}, null)
+}
+else
+{
+   <p style="color:red">@ViewBag.FineMessage</p>
+}
+
+<h4>Change your account details</h4>
+<hr />
+<h5>Current Details</h5>
+<dl class="dl-horizontal">
+    <dt>
+        @Html.DisplayNameFor(m => m.user.FName)
+    </dt>
+    <dd>
+        @Html.DisplayFor(m => m.user.FName)
+    </dd>
+    <dt>
+        @Html.DisplayNameFor(m => m.user.LName)
+    </dt>
+    <dd>
+        @Html.DisplayFor(m => m.user.LName)
+    </dd>
+    <dt>
+        Username
+    </dt>
+    <dd>
+        @Html.DisplayFor(m => m.user.UserName)
+    </dd>
+    <dt>
+        @Html.DisplayNameFor(m => m.user.Email)
+    </dt>
+    <dd>
+        @Html.DisplayFor(m => m.user.Email)
+    </dd>
+    <dt>
+        @Html.DisplayNameFor(m => m.user.DisplayAddress)
+    </dt>
+    <dd>
+        @Html.DisplayFor(m => m.user.DisplayAddress)
+    </dd>
+</dl>
+
+ @using (Html.BeginForm("EditUserDetails", "Manage", new { id = Model.user.Id }, FormMethod.Post, null ))
+ {
+@Html.AntiForgeryToken()
+
+    <input type="submit" value="Edit Details" class="btn btn-default" />
+
+}
+
+<br />
+
+@using (Html.BeginForm("DeleteUser", "Manage", new { id = Model.user.Id }, FormMethod.Post, null))
+{
+    @Html.AntiForgeryToken()
+
+    <input type="submit" value="Cancel Membership" class="btn btn-default" />
+
+}
+<hr />
+<p class="text-success">@ViewBag.StatusMessage</p>
+<div>
+    <h4>Change your account settings</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>Password:</dt>
+        <dd>
+            [
+            @if (Model.HasPassword)
+            {
+                @Html.ActionLink("Change your password", "ChangePassword")
+            }
+            else
+            {
+                @Html.ActionLink("Create", "SetPassword")
+            }
+            ]
+        </dd>
+        <dt>External Logins:</dt>
+        <dd>
+            @Model.Logins.Count [
+            @Html.ActionLink("Manage", "ManageLogins") ]
+        </dd>
+        <dt>Change Membership:</dt>
+        <dd>
+            @Model.Role [@Html.ActionLink("Change membership", "ChangeMembership", "Roles", new { id = Model.user.Id }, null) 
+            &nbsp;|&nbsp;
+            @Html.ActionLink("Cancel Membership", "DeleteUser", new {id = Model.user.Id})]
+
+        </dd>
+        <dt>Phone Number:</dt>
+        <dd>
+            @(Model.PhoneNumber ?? "None") [
+            @if (Model.PhoneNumber != null)
+            {
+                @Html.ActionLink("Change", "AddPhoneNumber")
+                @: &nbsp;|&nbsp;
+                @Html.ActionLink("Remove", "RemovePhoneNumber")
+            }
+            else
+            {
+                @Html.ActionLink("Add", "AddPhoneNumber")
+            }
+            ]
+        </dd>
+        <dt>Two-Factor Authentication:</dt>
+        <dd>
+            @if (Model.TwoFactor)
+            {
+                using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <text>Enabled
+                        <input type="submit" value="Disable" class="btn btn-link" />
+                    </text>
+                }
+            }
+            else
+            {
+                using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <text>Disabled
+                        <input type="submit" value="Enable" class="btn btn-link" />
+                    </text>
+                }
+            }
+        </dd>
+
+</dl>
+</div>

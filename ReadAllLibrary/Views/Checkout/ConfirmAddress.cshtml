@@ -1,0 +1,91 @@
+﻿@model ReadAllLibrary.ViewModels.ConfirmAddressViewModel
+@{
+    ViewBag.Title = "Confirm Address";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p style="color:red">All orders are shipped standard delivery <br> If you would like to use our fast shipping facility (Average 1-3 days) please select the fast shipping option (£3.50).</p>
+
+@using (Html.BeginForm("AddressConfirmed", "Checkout", new { id = 1},FormMethod.Post))
+{
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.LabelFor(m => m.Address)
+        </dt>
+        <dd>
+            @Model.Address
+        </dd>
+        <dt>
+            @Html.LabelFor(m => m.City)
+        </dt>
+        <dd>
+            @Model.City
+        </dd>
+        <dt>
+            @Html.LabelFor(m => m.Postcode)
+        </dt>
+        <dd>
+            @Model.Postcode
+        </dd>
+
+    </dl>
+
+    
+    <p>
+        @Html.LabelFor(m => m.FastShipping)
+        @Html.CheckBoxFor(m => m.FastShipping, false)
+    </p>
+
+    @Html.HiddenFor(m => m.Amount)
+
+            <button class="btn btn-default">Confirm Address</button>
+            <hr />
+}
+
+<p>
+    Or select a different shipping address below
+</p>
+@using (Html.BeginForm("AddressConfirmed", "Checkout", new { id = 2 }, FormMethod.Post))
+{
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.LabelFor(m => m.Address)
+        </dt>
+        <dd>
+            @Html.EditorFor(m => m.Address)
+            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+
+        </dd>
+        <dt>
+            @Html.LabelFor(m => m.City)
+        </dt>
+        <dd>
+           @Html.EditorFor(m => m.City)
+            @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+
+
+        </dd>
+        <dt>
+            @Html.LabelFor(m => m.Postcode)
+
+        </dt>
+        <dd>
+            @Html.EditorFor(m => m.Postcode)
+            @Html.ValidationMessageFor(model => model.Postcode, "", new { @class = "text-danger" })
+
+
+        </dd>
+
+    </dl>
+    
+    <p>
+        @Html.LabelFor(m => m.FastShipping)
+        @Html.CheckBoxFor(m => m.FastShipping, false)
+    </p>
+
+    @Html.HiddenFor(m => m.Amount)
+
+    <button class="btn btn-default">Confirm Address</button>
+}

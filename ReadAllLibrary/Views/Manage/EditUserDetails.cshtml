@@ -1,0 +1,85 @@
+﻿@model ReadAllLibrary.ViewModels.EditDetailsViewModel
+
+@{
+    ViewBag.Title = "EditUserDetails";
+}
+
+<h2>Edit Details</h2>
+
+<br />
+<p style="color:red"><strong>IF YOU CHANGE YOUR EMAIL ADDRESS YOU WILL STILL HAVE THE SAME USERNAME</strong></p>
+@using (Html.BeginForm("EditUserDetailsPost", "Manage", FormMethod.Post, null))
+{
+ @Html.AntiForgeryToken()
+   
+    @Html.HiddenFor(m => m.User)
+    
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+<div class="form-group">
+    @Html.LabelFor(m => m.FName, htmlAttributes: new { @class = "col-md-2 control-label" })
+    <div class="col-md-10">
+        @Html.EditorFor(m => m.FName, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.FName, "", new { @class = "text-danger" })
+
+
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(m => m.LName, htmlAttributes: new { @class = "col-md-2 control-label" })
+    <div class="col-md-10">
+        @Html.EditorFor(m => m.LName, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.LName, "", new { @class = "text-danger" })
+
+
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(m => m.Email, htmlAttributes: new { @class = "col-md-2 control-label" })
+    <div class="col-md-10">
+        @Html.EditorFor(m => m.Email, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+
+
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(m => m.Address, htmlAttributes: new { @class = "col-md-2 control-label" })
+    <div class="col-md-10">
+        @Html.EditorFor(m => m.Address, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+
+
+    </div>
+</div>
+<div class="form-group">
+    @Html.LabelFor(m => m.City, htmlAttributes: new { @class = "col-md-2 control-label" })
+    <div class="col-md-10">
+        @Html.EditorFor(m => m.City, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+
+
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(m => m.PostCode, htmlAttributes: new { @class = "col-md-2 control-label" })
+    <div class="col-md-10">
+        @Html.EditorFor(m => m.PostCode, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.PostCode, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+        <input type="hidden" value="@Model.User" />
+        <input type="submit" class="btn btn-default" value="Submit" />
+    </div>
+</div>
+}
+

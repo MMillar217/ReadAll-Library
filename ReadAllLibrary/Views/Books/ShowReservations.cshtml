@@ -1,0 +1,20 @@
+﻿@model IEnumerable<ReadAllLibrary.ViewModels.ReservationListViewModel>
+@{
+    ViewBag.Title = "ShowReservations";
+}
+
+<h2>Show Reservations</h2>
+
+@foreach(var item in Model)
+{
+    <p>@item.bookTitle</p>
+    <p>@item.ReservationId</p>
+
+
+    foreach(var u in item.ReservationListUsers)
+    {
+        <p>@u.DateAddedToList</p>
+        <p>@u.UserId</p>
+    }
+
+}

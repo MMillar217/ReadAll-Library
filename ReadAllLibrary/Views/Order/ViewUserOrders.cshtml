@@ -1,0 +1,110 @@
+﻿@model IEnumerable<ReadAllLibrary.Models.Order>
+@{
+    ViewBag.Title = "ViewUserOrders";
+}
+
+@if (ViewBag.Message != null)
+{
+    <script>
+
+$(document).ready(function(){
+
+    alert('@ViewBag.Message');
+    $('#extend').hide();
+
+});
+
+    </script>
+
+}
+
+
+<h2>Your Orders</h2>
+<h3><strong>You may be able to extend the length of your current loan if the books within your order haven't been reserved by another member</strong></h3>
+
+<p style="color:red">@ViewBag.Message</p>
+
+<table class="table">
+    <tr>
+
+        <th>
+           @Html.DisplayNameFor(model => model.OrderId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OrderDate)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.ReturnDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Total)
+        </th>
+        <th>
+            Order Status
+        </th>
+       
+    </tr>
+
+    @foreach (var item in Model.OrderByDescending(item => item.ReturnDate))
+    {
+        <tr>
+            <td>
+                
+                @Html.DisplayFor(modelItem => item.OrderId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderDate)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.ReturnDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Total)
+            </td>
+            
+            
+           
+            @switch (item.OrderStatus)
+                {
+                    case 1:
+                <td>
+                    Active
+                </td>
+                    break;
+                case 2:
+                    <td>
+                        Fine issued
+                    </td>
+                    break;
+                case 3:
+                    <td>
+                       late, fine to be issued
+                    </td>
+                    break;
+                case 4:
+                    <td>
+                        Returned
+                    </td>
+                    break;
+            }
+
+            @{ var result = DateTime.Compare(item.OrderDate.AddMonths(1), item.ReturnDate);}
+
+            @if( result >= 0 && (item.OrderStatus == 1))
+            {
+                <td id="extend">
+                    @Html.ActionLink("Extend Loan", "ExtendLoan", "Order", new { id = item.OrderId }, null)
+                </td>
+            }
+
+            <td>
+                @Html.ActionLink("Details", "OrderConfirmation", "Checkout", new { id = item.OrderId }, null)
+            </td>
+        </tr>
+
+
+    }
+
+</table>

@@ -1,0 +1,90 @@
+﻿@using Microsoft.AspNet.Identity
+
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <ul class="nav navbar-nav navbar-right">
+
+            @if (User.IsInRole("Unlimited Member") || User.IsInRole("Limited Member"))
+            {
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="margin-right: 5px;">@User.Identity.GetUserName()<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/Order/ViewUserOrders">Your Orders</a></li>
+                        <li><a href="/Manage/Index">Your Account</a></li>
+                        <li><a href="/ShoppingCart/ReservationList">Reservation List</a></li>
+
+                    </ul>
+                </li>
+            }
+         
+    
+            @{ if (User.IsInRole("SuperAdmin") || User.IsInRole("Manager"))
+                {
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="margin-right: 5px;">Admin Options<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/Books/Index">Manage Stock</a></li>
+                            <li><a href="/Manage/ListAllUsers">Manage Members</a></li>
+                            <li><a href="/Account/Register">New Staff</a></li>
+                            <li><a href="/Roles/Index">Create User Roles</a></li>
+                            <li><a href="/Manager/BookReport">View Book Report</a></li>
+                            <li><a href="/Manager/OrderReport">View Order Report</a></li>
+                            <li><a href="/Manager/SupplierReport">View Supplier Report</a></li>
+                        </ul>
+                    </li>
+                }
+                else if (User.IsInRole("Membership Clerk"))
+                {
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="margin-right: 5px;">Options<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/BookingsClerk/ViewAllActiveOrders">Book Order Processing</a></li>
+                            <li><a href="/Manage/ListAllUsers">Manage Members</a></li>
+
+                        </ul>
+                    </li>
+                }
+                else if (User.IsInRole("Bookings Clerk"))
+                {
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="margin-right: 5px;">Options<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+
+                            <li><a href="/BookingsClerk/ViewAllActiveOrders">Book Order Processing</a></li>
+                           
+                        </ul>
+                    </li>
+                }
+                else
+                {
+
+                    <li>
+
+                        <a href="@Url.Action("Index", "ShoppingCart")"><i class="fa fa-shopping-cart"></i></a>
+                    </li>
+
+                }
+
+            }
+
+
+
+
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+        </ul>
+                    }
+                }
+                else
+                {
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>@Html.ActionLink("Sign up", "SignUp", "Roles", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+
+                    </ul>
+
+
+                }

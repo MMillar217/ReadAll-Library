@@ -1,0 +1,107 @@
+﻿@model IEnumerable<ReadAllLibrary.ViewModels.BookReportViewModel>
+
+
+@{
+    ViewBag.Title = "BookReport";
+}
+<br />
+
+<h2>Book Report</h2>
+
+@using (Html.BeginForm())
+   {
+    <p>
+        Find book by title: @Html.TextBox("SearchString")
+        <input type="submit" value="Search" />
+    </p>
+}
+
+@using (Html.BeginForm("ExportBookData", "Manager", new { searchString = ViewBag.CurrentFilter}))
+{
+
+    <button class="btn-btn-primary">Export to Excel</button>
+}
+
+    <br />
+
+@using (Html.BeginForm("GenerateBookPDF", "Manager", new { searchString = ViewBag.CurrentFilter }))
+{
+
+    <button class="btn-btn-primary">Generate PDF</button>
+}
+
+    <br />
+
+<table class="table">
+    <tr>
+        <th>
+            BookID
+        </th>
+        <th>
+            Book title
+        </th>
+
+        <th>
+            Description
+        </th>
+        <th>
+            Reviews
+        </th>
+        <th>
+            Category
+        </th>
+        <th>
+            Genre
+        </th>
+        <th>
+            Publisher
+        </th>
+    </tr>
+
+  @foreach (var item in Model)
+  {
+      <tr>
+
+          <td>
+              @Html.DisplayFor(m => item.BookId)
+              @Html.HiddenFor(m => item.BookId)
+          </td>
+          <td>
+              @Html.DisplayFor(m => item.BookTitle)
+              @Html.HiddenFor(m => item.BookTitle)
+          </td>
+          <td>
+              @Html.DisplayFor(m => item.Description)
+              @Html.HiddenFor(m => item.Description)
+          </td>
+          <td>
+              @Html.DisplayFor(m => item.ReviewCount)
+              @Html.HiddenFor(m => item.ReviewCount)
+          </td>
+          <td>
+              @Html.DisplayFor(m => item.Category)
+              @Html.HiddenFor(m => item.Category)
+          </td>
+          <td>
+              @Html.DisplayFor(m => item.Genre)
+              @Html.HiddenFor(m => item.Genre)
+          </td>
+          <td>
+              @Html.DisplayFor(m => item.PublisherName)
+              @Html.HiddenFor(m => item.PublisherName)
+          </td>
+          
+
+
+   </tr>
+
+
+  }
+
+</table>
+
+
+<div class="page-break"><br /></div>
+
+
+

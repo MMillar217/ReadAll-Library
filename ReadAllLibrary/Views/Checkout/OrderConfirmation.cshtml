@@ -1,0 +1,181 @@
+﻿@model ReadAllLibrary.Models.Order
+
+@{string cardNumber = "";
+    int substringStart = 0; }
+
+@if (Model.Payment.CardNumber != null)
+{
+    cardNumber = Model.Payment.CardNumber;
+
+    if (cardNumber.Length == 15)
+    {
+        substringStart = 11;
+
+
+    }
+    else
+    {
+        substringStart = 12;
+
+    }
+}
+
+
+
+
+
+@if (ViewData["OrderId"] != null)
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="text-center">
+
+                    <h2>Order: @Model.OrderId</h2>
+                </div>
+                <hr>
+                <div class="row">
+                    @if (Convert.ToBoolean(ViewData["PayPalPayment"]) == false)
+                    {
+                    <div class="col-xs-12 col-md-3 col-lg-3 pull-left">
+                        <div class="panel panel-default height">
+                            <div class="panel-heading">Billing Details</div>
+                            <div class="panel-body">
+                                <strong>@Model.Payment.Name</strong><br>
+                                
+                                @Model.Payment.CardAddress<br>
+                                @Model.Payment.CardCity<br>
+
+                                <strong>@Model.Payment.CardPostCode</strong><br>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-md-3 col-lg-3">
+                        <div class="panel panel-default height">
+                            <div class="panel-heading">Payment Information</div>
+                            <div class="panel-body">
+                               
+
+                                <strong>Card Number:</strong> ************@Model.Payment.CardNumber.Substring(substringStart, 4)<br>
+                               
+                                <strong>Exp Date:</strong> @Model.Payment.ExpiryMonth/@Model.Payment.ExpiryYear <br>
+                                <strong>Date Paid:</strong>@Model.Payment.DatePaid<br>
+                            </div>
+                        </div>
+                    </div>
+
+                    }
+                    else
+                    {
+                        <div class="col-xs-12 col-md-3 col-lg-3 pull-left">
+                            <div class="panel panel-default height">
+                                <div class="panel-heading">Billing Details</div>
+                                <div class="panel-body">
+                                    <strong>You paid via paypal</strong>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-md-3 col-lg-3">
+                            <div class="panel panel-default height">
+                                <div class="panel-heading">Payment Information</div>
+                                <div class="panel-body">
+                                    <strong>Payment Method: </strong>PayPal<br>
+                                    <strong>PayPal Payment Reference: </strong> @Model.Payment.PayPalPaymentID <br>
+                                    <strong>Date Paid:</strong>@Model.Payment.DatePaid<br>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    
+                    <div class="col-xs-12 col-md-3 col-lg-3">
+                        <div class="panel panel-default height">
+                            <div class="panel-heading">Order Information</div>
+                            <div class="panel-body">
+
+                                <strong>Express Delivery:</strong> @Model.ShippingDetails.fastShipping<br>
+                                <strong>Return Date:</strong> @Model.ReturnDate.ToShortDateString()<br>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-3 col-lg-3 pull-right">
+                        <div class="panel panel-default height">
+                            <div class="panel-heading">Shipping Address</div>
+                            <div class="panel-body">
+                                <strong>@Model.User.FName</strong><br>
+                                <strong>@Model.User.LName</strong><br>
+                                @Model.ShippingDetails.Address<br>
+                                @Model.ShippingDetails.City<br>
+
+                                <strong>@Model.ShippingDetails.PostCode</strong><br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="text-center"><strong>Item summary</strong></h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table class="table table-condensed">
+
+                                <thead>
+                                    <tr>
+                                        <td><strong>Item Name</strong></td>
+                                        @if (User.IsInRole("Manager") || User.IsInRole("Bookings Clerk") || User.IsInRole("Membership Clerk"))
+                                        {
+                                        <td><strong>Copy Number</strong></td>
+                                        }
+                                        <td><strong>Category</strong></td>
+                                    </tr>
+                                </thead>
+                                @foreach (var item in Model.OrderLine)
+                                {
+                                    <tbody>
+                                        <tr>
+                                            <td>@item.BookCopy.Book.BookTitle</td>
+
+@if (User.IsInRole("Manager") || User.IsInRole("Bookings Clerk") || User.IsInRole("Membership Clerk"))
+{
+                                            <td>@item.BookCopy.BookCopyID</td>
+}
+                                            <td>@item.BookCopy.Book.Category</td>
+                                        </tr>
+
+                                    </tbody>
+                                }
+
+                                                              
+                            </table>
+
+                            <p class="pull-right"> Total: @Model.Total</p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <p style="color:red"><strong>Please keep a note of your order number for your records.</strong></p>
+
+        <input type="button" value="Print" onclick="window.print()" class="btn-default">
+
+    </div>
+}
+else
+{
+    <br>
+    <br>
+   
+    <h2>@ViewBag.Error</h2>
+  
+}
+
+

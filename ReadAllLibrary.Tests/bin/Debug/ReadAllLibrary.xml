@@ -1,0 +1,1369 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ReadAllLibrary</name>
+    </assembly>
+    <members>
+        <member name="T:ReadAllLibrary.Controllers.AccountController">
+            <summary>
+            Auto generated account controller provided by ASP.NET Identity.
+            </summary>
+            
+        </member>
+        <member name="P:ReadAllLibrary.Controllers.AccountController.SignInManager">
+            <summary>
+            SignInManager Property. Includes Getter and Setter
+            </summary>
+        </member>
+        <member name="P:ReadAllLibrary.Controllers.AccountController.UserManager">
+            <summary>
+            UserManager Property. Includes Getter and Setter
+            </summary>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.AccountController.SendEmail(ReadAllLibrary.Models.ApplicationUser)">
+            <summary>
+            Sends welcome email to new customers.
+            </summary>
+            <param name="user">Application user which email is being sent to</param>
+            <returns>String</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.AccountController.Login(System.String,System.String)">
+            <summary>
+            Displays login screen view
+            </summary>
+            <param name="returnUrl"></param>
+            <returns>View</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.AccountController.Login(ReadAllLibrary.Models.LoginViewModel,System.String)">
+            <summary>
+            Method which handles user login attempts
+            </summary>
+            <param name="model">viewmodel containing login info</param>
+            <param name="returnUrl">string Url which user was redirected from</param>
+            <returns></returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.AccountController.Register">
+            <summary>
+            returns registration view
+            </summary>
+            <returns>View</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.AccountController.Register(ReadAllLibrary.Models.RegisterViewModel)">
+            <summary>
+            POST method for registration.
+            Users membership choice is used to assign role.
+            If admin or manager they are redirected to the roles controller to assign a new employee a role.
+            </summary>
+            <param name="model">RegisterViewModel with registration information</param>
+            <returns>View</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.AccountController.ForgotPassword">
+            <summary>
+            GETs the forgot password view
+            </summary>
+            <returns>View</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.AccountController.ForgotPassword(ReadAllLibrary.Models.ForgotPasswordViewModel)">
+            <summary>
+            POST method for forgot password
+            
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ReadAllLibrary.Controllers.BaseController">
+            <summary>
+            Abstact class which extends Controller and is implemented be the other controllers in the project
+            allows for the collection of common methods which may be used in more than one controller
+            </summary>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.BaseController.IsSuperAdmin">
+            <summary>
+            uses the current users identity to access their role.
+            used to work out if the current user is the in the role superadmin
+            </summary>
+            <returns>true if super admin, false if not</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.BaseController.IsManager">
+            <summary>
+            uses the current users identity to access their role.
+            used to work out if the current user is the in the role Manager
+            </summary>
+            <returns>true if manager, false if not</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.BaseController.IsBookingsClerk">
+            <summary>
+            uses the current users identity to access their role.
+            used to work out if the current user is the in the role bookings clerk
+            </summary>
+            <returns>true if bookings clerk, false if not</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.BaseController.IsMembershipClerk">
+            <summary>
+            uses the current users identity to access their role.
+            used to work out if the current user is the in the role Membership Clerk
+            </summary>
+            <returns>true if Membership clerk, false if not</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.BaseController.IsLoggedIn">
+            <summary>
+            uses the current users identity to access whether they are logged in
+            </summary>
+            <returns>true if Logged in, false if not</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.BaseController.GetCurrentUser">
+            <summary>
+            Method which gets the current logged in user of the systems identity
+            uses the current user id from the identity
+            </summary>
+            <returns>the current user object</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.BaseController.RoleAddToUser(System.String,System.String)">
+            <summary>
+            Method which allows for a user to added to a Identity role.
+            Updates the users role and updates the user through the UOW
+            </summary>
+            <param name="UserName">User to be added to role</param>
+            <param name="RoleName">Role to which user is the be added</param>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.BaseController.DeleteRoleForUser(System.String,System.String)">
+            <summary>
+            Method which allows for a user to removed from an Identity role.
+            Updates the users role and updates the user through the UOW
+            </summary>
+            <param name="UserName">User to be added to role</param>
+            <param name="RoleName">Role to which user is the be added</param>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.BaseController.FilterBookByCategory(System.Nullable{System.Int32},System.Collections.Generic.IEnumerable{ReadAllLibrary.Models.Book})">
+            <summary>
+            Method which allows books to be filtered by category
+            </summary>
+            <param name="categoryFilter">category which books are to be filtered by</param>
+            <param name="books">collection of books to be filtered</param>
+            <returns>filtered collection of books based on category</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.BaseController.FilterBookByGenre(System.Nullable{System.Int32},System.Collections.Generic.IEnumerable{ReadAllLibrary.Models.Book})">
+            <summary>
+            Method which allows books to be filtered by genre
+            </summary>
+            <param name="genreFilter">genre which books are to be filtered by</param>
+            <param name="books">collection of books to be filtered</param>
+            <returns>filtered collection of books based on genre</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.BaseController.ProcessPayment(ReadAllLibrary.ViewModels.StripeChargeModel)">
+            <summary>
+            helper method to deal with processing payment.
+            creates stripe payment token and processes the payment
+            </summary>
+            <param name="model">payment details</param>
+            <returns>chargeId</returns>
+        </member>
+        <member name="T:ReadAllLibrary.Controllers.CustomAuthorizeAttribute">
+            <summary>
+            Custom authorization attribute class, extends the AuthorizAttribute class
+            Allows for custom roles based authorization to be applied to controllers limiting access based on role.
+            </summary>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.CustomAuthorizeAttribute.AuthorizeCore(System.Web.HttpContextBase)">
+            <summary>
+            method which determines the current users role and sets whether they have the required access permission
+            </summary>
+            <param name="httpContext">the current context</param>
+            <returns>true if the user is in the required role, false if not</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.CustomAuthorizeAttribute.HandleUnauthorizedRequest(System.Web.Mvc.AuthorizationContext)">
+            <summary>
+            method which allows for the handling of an unauthorized access request.
+            Redirects user to the login screen if they arent logged in with the appropriate access permission
+            </summary>
+            <param name="filterContext">AuthorizationContext instance which returns the result of the request</param>
+        </member>
+        <member name="T:ReadAllLibrary.Controllers.CustomAuthorizeAttribute.RedirectController">
+            <summary>
+            class which allows for the custom redirect to the login screen, extends Controller base class
+            used if the user is Unauthorized
+            </summary>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.CustomAuthorizeAttribute.RedirectController.RedirectLogin">
+            <summary>
+            Method which handles the redirect to the login screen,
+            passes a message to the login controller to be displayed in the view
+            </summary>
+            <returns>a redirect to the login screen with a message</returns>
+        </member>
+        <member name="T:ReadAllLibrary.Controllers.BookingsClerkController">
+            <summary>
+            Controller which holds functions specific to bookings clerk
+            </summary>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.BookingsClerkController.ViewAllActiveOrders">
+            <summary>
+            finds orders where the status code = 1, 2 or 3 and returns these to the view
+            </summary>
+            <returns>List of orders</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.BookingsClerkController.MarkOrderAsReturnedView(System.Int32)">
+            <summary>
+            View which shows selected order to be marked as returned
+            </summary>
+            <param name="id">order id</param>
+            <returns>Order to be marked as returned</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.BookingsClerkController.MarkOrderAsReturned(System.Int32)">
+            <summary>
+            POST method which marks the selected order as returned. Also updates the status of each book within the order.
+            </summary>
+            <param name="id">order id</param>
+            <returns>Redirect to ViewAllActiveOrders view</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.BookingsClerkController.IssueFines">
+            <summary>
+            Creates fines for books which are overdue. Emails an invoice to members and restricts their account
+            </summary>
+            <returns>Redirect to ViewAllActiveOrders</returns>
+        </member>
+        <member name="T:ReadAllLibrary.Controllers.BooksController">
+            <summary>
+            Controller class which holds functions specific to books
+            </summary>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.BooksController.Index(System.String,System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Displays the index view for the books.
+            </summary>
+            <param name="sortOrder">sorts books depending on user input</param>
+            <param name="currentFilter">stores what books are currently filtered by</param>
+            <param name="searchString">allows for books to be filtered dependent on user input</param>
+            <param name="page">current page of results</param>
+            <param name="categoryFilter">filters books by category depending on user input</param>
+            <param name="genreFilter">filters books by genre depending on user input</param>
+            <returns></returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.BooksController.Details(System.Int32)">
+            <summary>
+            method which displays details of a specific book in database
+            </summary>
+            <param name="id">book to be displayed</param>
+            <returns>a formated view of the book to the view</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.BooksController.CreateCopies(ReadAllLibrary.Models.Book)">
+            <summary>
+            method which allows for the creation of copies of a book when it is added to stock.
+            uses the stock number added to count how many copies should be made.
+            </summary>
+            <param name="book">Book for which copy objects are being produced</param>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.BooksController.Create">
+            <summary>
+            View which allows a user to create a new book
+            </summary>
+            <returns>the Create view</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.BooksController.Create(ReadAllLibrary.Models.Book,System.Int32,System.Int32)">
+            <summary>
+            POST action method which posts the created book from the create view to the UOW
+            </summary>
+            <param name="book">Book information from create view</param>
+            <param name="PublisherId">selected publisher id</param>
+            <param name="SupplierId">selected supplier id</param>
+            <returns>if successfull a redirect to the Index of books, if not the create view</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.BooksController.Edit(System.Int32)">
+            <summary>
+            View which allows a user to edit a specific book
+            </summary>
+            <param name="id">id of book to be edited</param>
+            <returns>the book to be edited to the view</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.BooksController.Edit(ReadAllLibrary.Models.Book,System.Int32,System.Int32)">
+            <summary>
+            POST method for editing a book which posts the edited information to the UOW.
+            Retrives info posted from the GET edit method
+            </summary>
+            <param name="book">edited book information</param>
+            <param name="PublisherId">edited publisher information</param>
+            <param name="SupplierId">edited supplier information</param>
+            <returns>redirect to index page if success, edit view if not</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.BooksController.Delete(System.Int32)">
+            <summary>
+            method which returns the view to delete a book
+            </summary>
+            <param name="id">id of book to be deleted</param>
+            <returns>the selected book to the view</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.BooksController.DeleteConfirmed(System.Int32)">
+            <summary>
+            POST method to delete a book which uses the book id in the UOW delete method
+            </summary>
+            <param name="id">id of book to be deleted</param>
+            <returns>redirect to index view</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.BooksController.IndexOfPublishers">
+            <summary>
+            view which displays an index of all book publishers
+            </summary>
+            <returns>a list of publishers to the view</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.BooksController.CreatePublisher">
+            <summary>
+            method which displays the view to create a new publisher
+            </summary>
+            <returns>Create publisher view</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.BooksController.CreatePublisher(ReadAllLibrary.Models.Publisher)">
+            <summary>
+            POST method which posts publisher details from the view to the UOW
+            </summary>
+            <param name="publisher">publisher object from view</param>
+            <returns>Redirect to the create book action</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.BooksController.IndexOfSuppliers">
+            <summary>
+            view which displays an index of all book suppliers
+            </summary>
+            <returns>a list of suppliers to the view</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.BooksController.CreateSupplier">
+            <summary>
+            Method which displays the create supplier view
+            </summary>
+            <returns>the view to the user</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.BooksController.CreateSupplier(ReadAllLibrary.Models.Supplier)">
+            <summary>
+            POST method which posts the publisher details from the view to the UOW
+            </summary>
+            <param name="supplier">Supplier to be created</param>
+            <returns>Redirect to the Create book view.</returns>
+        </member>
+        <member name="T:ReadAllLibrary.Controllers.CheckoutController">
+            <summary>
+            Controller class which contains methods related to the checkout process
+            </summary>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.CheckoutController.ConfirmAddress(System.Decimal)">
+            <summary>
+            Method which returns a view asking the user to confirm their shipping address details
+            </summary>
+            <param name="amount">Order amount</param>
+            <returns>the ConfirmAddressViewModel to the view</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.CheckoutController.AddressConfirmed(ReadAllLibrary.ViewModels.ConfirmAddressViewModel,System.Int32)">
+            <summary>
+            Posts the address information which has been selected by the customer 
+            </summary>
+            <param name="confirmAddressViewModel">Information that the customer has entered</param>
+            <param name="id">Used to identify wheter the user has selected to user their saved address or a new one</param>
+            <returns>A redirect to the choose payment type view.</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.CheckoutController.ChoosePaymentType">
+            <summary>
+            Method which displays a view and allows the user to select their payment method
+            </summary>
+            <returns>ChoosePaymentType view if shipping details arent null, else it redirects to ConfirmAddressView</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.CheckoutController.PayPalPayment">
+            <summary>
+            Method which returns a view to retrieve customers paypal payment details 
+            </summary>
+            <returns>PayPalPaymentViewModel to the view</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.CheckoutController.CreatePaypalPayment(System.Web.Mvc.FormCollection)">
+            <summary>
+            Method which uses paypal details generated from view to make paypal payment.
+            </summary>
+            <param name="collection">information from submitted form including payment nonce and amount</param>
+            <returns>Redirect to orderconfirmation page if successful, else Redirect to show errors page.</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.CheckoutController.ShowErrors">
+            <summary>
+            Method which displays a view with any payment errors on it
+            </summary>
+            <returns>Show Errors view</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.CheckoutController.ChargeView(System.Nullable{System.Boolean})">
+            <summary>
+            Method which returns a view to retrieve payment details
+            </summary>
+            <param name="error">if there is an error with the payment details entered this is true and message is displayed</param>
+            <returns>StripeChargeModel to the view</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.CheckoutController.Charge(ReadAllLibrary.ViewModels.StripeChargeModel)">
+            <summary>
+            Method which creates a card payment using stripe
+            </summary>
+            <param name="model">values entered by the customer from the payment view</param>
+            <returns>OrderConfirmation view if success, else return view</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.CheckoutController.CreateFinalOrder(System.Decimal)">
+            <summary>
+            Creates the order using the shipping details and payment information provided
+            </summary>
+            <returns>Order details to the FinalOrderConfirmation view</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.CheckoutController.OrderConfirmation(System.Int32)">
+            <summary>
+            Method which returns the users successful order to the view
+            </summary>
+            <param name="id">id of the order which has been created</param>
+            <returns>Details of the successful order to the view</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.CheckoutController.SendEmail(ReadAllLibrary.Models.Order)">
+            <summary>
+            Method which is used to generate an email invoice to send to the customer containing the order details
+            </summary>
+            <param name="currentOrder">The customers order which details are being retrieved from</param>
+            <returns>The email message</returns>
+        </member>
+        <member name="T:ReadAllLibrary.Controllers.HomeController">
+            <summary>
+            Controller class which contains methods relevant to the homepage
+            </summary>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.HomeController.Index">
+            <summary>
+            Method which returns the items displayed on the homepage
+            displays a list of the most recently added books
+            </summary>
+            <returns>the homepage view with a list of books</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.HomeController.About">
+            <summary>
+            Method which displays the about page
+            </summary>
+            <returns>the about page view</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.HomeController.Contact">
+            <summary>
+            Method which displays the contact page view
+            </summary>
+            <returns>the contact page details to the view</returns>
+        </member>
+        <member name="T:ReadAllLibrary.Controllers.ManageController">
+            <summary>
+            Autogenerated controller which handles user account management
+            some additional methods have been added
+            </summary>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.ManageController.EditUserDetails(System.String)">
+            <summary>
+            GETS the user details to be displayed in view
+            </summary>
+            <param name="id">id of user whos details are to be displayed</param>
+            <returns>the user details to the view</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.ManageController.EditUserDetailsPost(ReadAllLibrary.Models.ApplicationUser)">
+            <summary>
+            POST method which posts the updated user details to the UOW
+            </summary>
+            <param name="user">updated user object</param>
+            <returns>a redirect to the index method of manage controller</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.ManageController.PayFineView(System.String)">
+            <summary>
+            Gets information about requested fine and returns this to the view
+            </summary>
+            <param name="id">id of fine to be displayed</param>
+            <returns>fine object to view</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.ManageController.ChooseFinePaymentMethod">
+            <summary>
+            displays view where user choses payment method
+            </summary>
+            <returns>View</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.ManageController.ChargeView(System.Nullable{System.Boolean})">
+            <summary>
+            Displays view where user can enter payment details
+            </summary>
+            <param name="error">if user has entered incorrect details this is true and message is displayed, else this is false</param>
+            <returns>View for obtaining payment details</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.ManageController.Charge(ReadAllLibrary.ViewModels.StripeChargeModel)">
+            <summary>
+            creates card payment for fine 
+            </summary>
+            <param name="model">values from the payment view</param>
+            <returns>FineConfirmation view if success, else charge view</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.ManageController.PayPalPayment">
+            <summary>
+            Method which displays view which allows user to pay view paypal
+            </summary>
+            <returns>the paypal payment viewmodel to the view</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.ManageController.CreatePaypalPayment(System.Web.Mvc.FormCollection)">
+            <summary>
+            POST method which create paypal payment for fine
+            </summary>
+            <param name="collection">information from submitted form, including payment nonce and amount</param>
+            <returns>Fine confirmation view id successful, else redirect to Index view</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.ManageController.FinePaymentConfirmation(System.Int32)">
+            <summary>
+            Method which displays a view showing the fine payment confirmation details
+            </summary>
+            <param name="id">id of successfully paid fine</param>
+            <returns>fine object to the view</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.ManageController.ListAllUsers(System.String,System.String,System.Nullable{System.Int32})">
+            <summary>
+            Method which returns a view with all members on it in a paged list format
+            </summary>
+            <param name="currentFilter">what the user list is currently filtered by</param>
+            <param name="searchString">search filter to be applied to lise</param>
+            <param name="page">current page</param>
+            <returns>a Paged list of users to the view</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.ManageController.DeleteUser(System.String)">
+            <summary>
+            Method which returns the view which allows for a user to be deleted
+            </summary>
+            <param name="id">id of user to be deleted</param>
+            <returns>user object to the view</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.ManageController.StaffDeleteMemberAccount(System.String)">
+            <summary>
+            POST Method which allows staff to delete a user. posts details of user to be deleted to Delete method in UOW
+            </summary>
+            <param name="id">user id of user to be deleted</param>
+            <returns>a redirect to the list of all users</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.ManageController.DeleteMemberAccount(System.String)">
+            <summary>
+            POST Method which allows user to delete a their account. posts details of user to be deleted to Delete method in UOW
+            </summary>
+            <param name="id">user id of user to be deleted</param>
+            <returns>a redirect to the home page</returns>
+        </member>
+        <member name="T:ReadAllLibrary.Controllers.ManagerController">
+            <summary>
+            Controller which holds methods relevant to managers
+            </summary>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.ManagerController.BookReport(System.String,System.Nullable{System.Int32},System.String)">
+            <summary>
+            Method which returns a view which a list of all books currently in the library
+            displays buttons which allows the manager to transform this view into a book report
+            </summary>
+            <param name="searchString">filter which may be applied to the book list</param>
+            <param name="page">current page</param>
+            <param name="currentFilter">current filter which has been applied</param>
+            <returns>a list of books to the view</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.ManagerController.ExportBookData(System.String)">
+            <summary>
+            Method which allows the export of data from the view to an excel document.
+            </summary>
+            <param name="searchString">filter which may be applied to books</param>
+            <returns>An excel spreadsheet</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.ManagerController.GenerateBookPDF(System.String)">
+            <summary>
+            Method which generates a PDF report from data in the Bookreport view
+            </summary>
+            <param name="searchString">filter which may be applied to book list</param>
+            <returns>A PDF with the contents of the report</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.ManagerController.SupplierReport(System.String,System.Nullable{System.Int32},System.String)">
+            <summary>
+            Method which returns a view which a list of all suppliers currently in the library and their books
+            displays buttons which allows the manager to transform this view into a supplier report
+            </summary>
+            <param name="searchString">filter which may be applied to the supplier list</param>
+            <param name="page">current page</param>
+            <param name="currentFilter">current filter which has been applied</param>
+            <returns>a list of suppliers to the view</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.ManagerController.ExportSupplierData(System.String)">
+            <summary>
+            Method which allows the export of data from the view to an excel document.
+            </summary>
+            <param name="searchString">filter which may be applied to suppliers</param>
+            <returns>An excel spreadsheet</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.ManagerController.GenerateSupplierPDF(System.String)">
+            <summary>
+            Method which generates a PDF report from data in the SupplierReport view
+            </summary>
+            <param name="searchString">filter which may be applied to supplier list</param>
+            <returns>A PDF with the contents of the report</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.ManagerController.OrderReport(System.String,System.Nullable{System.Int32},System.String)">
+            <summary>
+            Method which returns a view which a list of all orders which have been placed
+            displays buttons which allows the manager to transform this view into an order report
+            </summary>
+            <param name="searchString">filter which may be applied to the order list</param>
+            <param name="page">current page</param>
+            <param name="currentFilter">current filter which has been applied</param>
+            <returns>a list of orders to the view</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.ManagerController.ExportOrderData(System.String)">
+            <summary>
+            Method which allows the export of data from the view to an excel document.
+            </summary>
+            <param name="searchString">filter which may be applied to orders</param>
+            <returns>An excel spreadsheet</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.ManagerController.GenerateOrderPDF(System.String)">
+            <summary>
+            Method which generates a PDF report from data in the OrderReport view
+            </summary>
+            <param name="searchString">filter which may be applied to order list</param>
+            <returns>A PDF with the contents of the report</returns>
+        </member>
+        <member name="T:ReadAllLibrary.Controllers.OrderController">
+            <summary>
+            Controller which holds methods which relate to to Orders
+            </summary>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.OrderController.ViewUserOrders(System.String)">
+            <summary>
+            Method which GETS all the orders that the current user has made and returns them to the view
+            </summary>
+            <param name="message">message which may be passed to view from other action method</param>
+            <returns>a list of the users orders</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.OrderController.ExtendLoan(System.Int32)">
+            <summary>
+            Method which allows the user to extend the length of their loan by 1 month if there are no fines on their account
+            </summary>
+            <param name="id">id of loan which is being extended</param>
+            <returns>Redirect to ViewUserOrders action with message to be displayed in the view.</returns>
+        </member>
+        <member name="T:ReadAllLibrary.Controllers.ReviewController">
+            <summary>
+            Controller class which contains methods relevant to Reviews
+            </summary>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.ReviewController.Index(System.Int32)">
+            <summary>
+            Method which returns a view with a list of all the comments for a particular book
+            </summary>
+            <param name="id">the id of the book which reviews are being displayed</param>
+            <returns>a list of the relevant reviews to the view</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.ReviewController.Create">
+            <summary>
+            Method which returns the view needed to create a new review
+            </summary>
+            <returns>the create view</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.ReviewController.Create(ReadAllLibrary.Models.Review,ReadAllLibrary.ViewModels.PartialTestViewModel)">
+            <summary>
+            Method which POSTS the created review to the UOW
+            </summary>
+            <param name="review">Review information to be posted</param>
+            <param name="pvm">The parent viewmodel to be repopulated</param>
+            <returns>the updated partial to the view</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.ReviewController.Edit(System.Int32)">
+            <summary>
+            Method which gets the view required to edit a review
+            </summary>
+            <param name="id">id of the review to be edited</param>
+            <returns>the edit review view</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.ReviewController.Edit(ReadAllLibrary.Models.Review)">
+            <summary>
+            Method which POSTS the updated review to the UOW
+            </summary>
+            <param name="review">updated review to be posted</param>
+            <returns>if successful a redirect to the details page of the book being reviewed else the edit review view</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.ReviewController.Delete(System.Int32)">
+            <summary>
+            Method which returns the view allowing for a review to be deleted
+            </summary>
+            <param name="id">id of review to be deleted</param>
+            <returns>the delete review view</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.ReviewController.DeleteConfirmed(System.Int32,System.Int32,ReadAllLibrary.ViewModels.PartialTestViewModel)">
+            <summary>
+            Method which POSTS the information about the deleted review to the UOW to allow for deletion from DB
+            </summary>
+            <param name="Id">id of review being deleted</param>
+            <param name="bookId">id of the book which the review is attributed to</param>
+            <param name="pvm">the viewmodel from the book details page</param>
+            <returns>if success the updated partial to the details view else the un updated details view.</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.RolesController.Index">
+            <summary>
+            Method which displays a list of roles in the index view
+            </summary>
+            <returns>a list of roles to the index view</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.RolesController.Create">
+            <summary>
+            Method which returns the view allowing the user to create a new role
+            </summary>
+            <returns>the create view</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.RolesController.Create(System.Web.Mvc.FormCollection)">
+            <summary>
+            Method which POSTS the information gathered from the create view to the DB
+            </summary>
+            <param name="collection">role information from view form post</param>
+            <returns>if success redirect to view index view, else return create view</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.RolesController.Edit(System.String)">
+            <summary>
+            Method which gets the edit view for a role
+            </summary>
+            <param name="roleName">the name of the role to be edited</param>
+            <returns>the role to be edited to the view</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.RolesController.Edit(Microsoft.AspNet.Identity.EntityFramework.IdentityRole)">
+            <summary>
+            Method which POSTS the edited role to the DB
+            </summary>
+            <param name="role">the edited role to be saved</param>
+            <returns>if success a redirect to the index view, else the edit view</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.RolesController.Delete(System.String)">
+            <summary>
+            Method which POSTS to the DB to delete the selected role
+            </summary>
+            <param name="RoleName">the role to be deleted</param>
+            <returns>the index view of roles</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.RolesController.ManageUserRoles">
+            <summary>
+            Method which displays a view allowing for the user to manage the roles of the system users
+            </summary>
+            <returns>the manager user roles view</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.RolesController.RoleAddToUser(System.String,System.String)">
+            <summary>
+            Method which allows for a role to be added to a selected user
+            </summary>
+            <param name="UserName">the username of the user whos role is to be updated</param>
+            <param name="RoleName">the name of the role they are to be added to</param>
+            <returns></returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.RolesController.GetRoles(System.String)">
+            <summary>
+            Method which allows for the display of all roles assigned to a particular user
+            </summary>
+            <param name="UserName">the username of the user whos roles are to be displayed</param>
+            <returns>The manage user roles view</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.RolesController.DeleteRoleForUser(System.String,System.String)">
+            <summary>
+            Method which allows for the deletion of a role from a user
+            </summary>
+            <param name="UserName">the username of the user whos to be deleted from the role</param>
+            <param name="RoleName">the name of the role which the user is to be deleted from</param>
+            <returns>The manage user roles view</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.RolesController.ChangeMembership(System.String)">
+            <summary>
+            Method which returns a view allowing a user to change their role
+            </summary>
+            <param name="id">id of the user whos role is to be changed</param>
+            <returns>the change membership view</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.RolesController.ChangeMembershipPost(System.String)">
+            <summary>
+            Method which POSTS the role update to the DB
+            </summary>
+            <param name="id">id of the user whos role is to be changed</param>
+            <returns>a redirect to the index view of the manage controller</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.RolesController.SignUp">
+            <summary>
+            Method which returns the signup view for users, allowing them to chose the membership type
+            </summary>
+            <returns>the sign up view</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.RolesController.MembershipChoice(System.Int32)">
+            <summary>
+            Method which saves the users membership choice in tempdata and redirects to the register view
+            </summary>
+            <param name="choice">the users membership choice from the sign up view</param>
+            <returns>a redirect to the register view of the account controller</returns>
+        </member>
+        <member name="T:ReadAllLibrary.Controllers.ShoppingCartController">
+            <summary>
+            Controller class which contains the methods relevant to the shopping cart functionality
+            </summary>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.ShoppingCartController.AddToWaitingList(ReadAllLibrary.Models.ApplicationUser,ReadAllLibrary.Models.Book)">
+            <summary>
+            Method which adds a user to a waiting list for a particular book
+            </summary>
+            <param name="user">user to be added to list</param>
+            <param name="book">book which the waiting list applies to</param>
+            <returns>a message stating if they have been added or not</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.ShoppingCartController.ReservationList">
+            <summary>
+            Method which returns a view showing the users reserved books
+            </summary>
+            <returns>list of reserved books to the view</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.ShoppingCartController.Index">
+            <summary>
+            Method which gets the index view of the users shopping cart displaying the items within the cart
+            </summary>
+            <returns>a list of shopping cart items to the view</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.ShoppingCartController.AddToCart(System.Int32)">
+            <summary>
+            Method which allows the user to add a book to their cart
+            checks various permissions and redirects accordingly depending if allowed or not
+            </summary>
+            <param name="id">id of book to be added to cart</param>
+            <returns>if success a redirect to the book index view to allow further shopping else the book details view</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Controllers.ShoppingCartController.RemoveFromCart(System.Int32)">
+            <summary>
+            Method which displays the updated shopping cart after an item has been removed
+            </summary>
+            <param name="id">id of the book to be removed</param>
+            <returns>a JSON to the view with the updated shopping cart contents</returns>
+        </member>
+        <member name="T:ReadAllLibrary.DAL.IRepository`1">
+            <summary>
+            Interface which defines the method signatures used to implement generic repository
+            </summary>
+            <typeparam name="T">Class Type</typeparam>
+        </member>
+        <member name="T:ReadAllLibrary.DAL.Repository`1">
+            <summary>
+            Generic Repository class whcih implements the IRepository Interface
+            Contains the methods required for CRUD actions.
+            </summary>
+            <typeparam name="T">Class type</typeparam>
+        </member>
+        <member name="M:ReadAllLibrary.DAL.Repository`1.#ctor(ReadAllLibrary.Models.LibraryAppContext)">
+            <summary>
+            Constructor which creates a repository object
+            </summary>
+            <param name="context">Database Context</param>
+        </member>
+        <member name="M:ReadAllLibrary.DAL.Repository`1.GetAll(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
+            <summary>
+            Generic method which retrieves all objects relating to repository type
+            </summary>
+            <param name="predicate">may be used to limit results if true</param>
+            <returns></returns>
+        </member>
+        <member name="M:ReadAllLibrary.DAL.Repository`1.Get(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
+            <summary>
+            Gets a specific result based on predicate value
+            </summary>
+            <param name="predicate">true/false value for get method</param>
+            <returns></returns>
+        </member>
+        <member name="M:ReadAllLibrary.DAL.Repository`1.Add(`0)">
+            <summary>
+            Method which addes new entity to dataset
+            </summary>
+            <param name="entity">Entity to be added</param>
+        </member>
+        <member name="M:ReadAllLibrary.DAL.Repository`1.Update(`0)">
+            <summary>
+            Method which updates and entity within the dataset
+            </summary>
+            <param name="entity">updated Entity to replace previous object</param>
+        </member>
+        <member name="M:ReadAllLibrary.DAL.Repository`1.Delete(`0)">
+            <summary>
+            Delete method used to delete entity from dataset
+            </summary>
+            <param name="entity">Entity to be deleted</param>
+        </member>
+        <member name="M:ReadAllLibrary.DAL.Repository`1.Count">
+            <summary>
+            Counts the total number of objects in a dataset
+            </summary>
+            <returns>Total number of objects</returns>
+        </member>
+        <member name="T:ReadAllLibrary.DAL.ShoppingCart">
+            <summary>
+            Class which handles the business logic involving the shopping cart actions
+            allows for instance of shopping cart to be accessed anywhere in the program.
+            </summary>
+        </member>
+        <member name="M:ReadAllLibrary.DAL.ShoppingCart.GetCart(System.Web.HttpContextBase)">
+            <summary>
+            Uses context from GetCart to get shopping cart for user.
+            </summary>
+            <param name="context">Context passed from envoking controller</param>
+            <returns>cart object</returns>
+        </member>
+        <member name="M:ReadAllLibrary.DAL.ShoppingCart.GetCart(System.Web.Mvc.Controller)">
+            <summary>
+            method which is called in the controller to get the shopping cart
+            </summary>
+            <param name="controller">controller which is calling the cart</param>
+            <returns>A call to the getcart method passing in the context from the controller which is calling</returns>
+        </member>
+        <member name="M:ReadAllLibrary.DAL.ShoppingCart.AddToCart(ReadAllLibrary.Models.Book)">
+            <summary>
+            Method to handle the addition of items to the shopping cart
+            </summary>
+            <param name="book">the item being added to the cart</param>
+            <returns>1 if successfully added, -1 if not</returns>
+        </member>
+        <member name="M:ReadAllLibrary.DAL.ShoppingCart.RemoveFromCart(System.Int32)">
+            <summary>
+            Method which handles the removal of items from the shopping cart
+            </summary>
+            <param name="id">id of item to be removed</param>
+            <returns>the new item count</returns>
+        </member>
+        <member name="M:ReadAllLibrary.DAL.ShoppingCart.EmptyCart">
+            <summary>
+            method which removes all items from the cart
+            </summary>
+        </member>
+        <member name="M:ReadAllLibrary.DAL.ShoppingCart.GetCartItems">
+            <summary>
+            method which gets all items currently in cart
+            </summary>
+            <returns>The cart items</returns>
+        </member>
+        <member name="M:ReadAllLibrary.DAL.ShoppingCart.GetCount">
+            <summary>
+            Counts the number of cart items in the cart
+            </summary>
+            <returns>the count</returns>
+        </member>
+        <member name="M:ReadAllLibrary.DAL.ShoppingCart.GetCartTotal(ReadAllLibrary.Models.ApplicationUser)">
+            <summary>
+            Method to get the total cost of the items in the cart.
+            Uses the item category to apply specific pricing to each item.
+            Also uses the current users role to apply appropriate pricing
+            </summary>
+            <param name="user">the owner of the cart</param>
+            <returns>the cart total</returns>
+        </member>
+        <member name="M:ReadAllLibrary.DAL.ShoppingCart.GetCartId(System.Web.HttpContextBase)">
+            <summary>
+            Method which gets the cartId from the session object.
+            if not cart exists for the user a new one is made and the key is the users username
+            if a cart does exist the key is returned
+            </summary>
+            <param name="context">the current context</param>
+            <returns>the key to access the cart(the user's username)</returns>
+        </member>
+        <member name="M:ReadAllLibrary.DAL.ShoppingCart.CreateOrder(ReadAllLibrary.Models.Order)">
+            <summary>
+            method which handles the creation of the orderlines for an order.
+            iterates through the cart items adding each item to an orderline.
+            decreases the stocklevel of each item being added the the order and then emptys cart when the order is succesful
+            </summary>
+            <param name="order">the current order which orderlines need to be generated for</param>
+            <returns>the order.id if successful</returns>
+        </member>
+        <member name="T:ReadAllLibrary.DAL.UnitOfWork">
+            <summary>
+            Unit of work class, implements IDisposable interface
+            Class which maintains in memory updates to each repository and sends these as one transaction to the database
+            </summary>
+        </member>
+        <member name="M:ReadAllLibrary.DAL.UnitOfWork.#ctor">
+            <summary>
+            empty constructor
+            creates a new instance of the context
+            </summary>
+        </member>
+        <member name="M:ReadAllLibrary.DAL.UnitOfWork.SaveChanges">
+            <summary>
+            Commits any data changes to the database
+            </summary>
+        </member>
+        <member name="M:ReadAllLibrary.DAL.UnitOfWork.Dispose(System.Boolean)">
+            <summary>
+            handles the disposal of the database context
+            </summary>
+            <param name="disposing">true if disposing</param>
+        </member>
+        <member name="T:ReadAllLibrary.Helpers.BraintreeConfiguration">
+            <summary>
+            BraintreeConfiguartion class, Implements Interface IBraintreeConfigiration
+            Contains the implementation of various methods relating the to creation of braintree payments
+            </summary>
+        </member>
+        <member name="M:ReadAllLibrary.Helpers.BraintreeConfiguration.CreateGateway">
+            <summary>
+            Method which uses the required braintree Keys to create a payment gateway
+            </summary>
+            <returns>Braintree Gateway</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Helpers.BraintreeConfiguration.GetConfigurationSetting(System.String)">
+            <summary>
+            Method which retrives the braintree configuration setting dependent on the setting value which is unput
+            </summary>
+            <param name="setting">Parameter to be configured</param>
+            <returns>Configured settings</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Helpers.BraintreeConfiguration.GetEnvironment">
+            <summary>
+            Method which returns the braintree sandbox environment
+            </summary>
+            <returns>Environment dependant on settings</returns>
+        </member>
+        <member name="M:ReadAllLibrary.Helpers.BraintreeConfiguration.GetGateway">
+            <summary>
+            Getter method for braintree gateway
+            Creates a new Gateway if BrainTreeGateWay is null
+            </summary>
+            <returns>BrainTreeGateway</returns>
+        </member>
+        <member name="T:ReadAllLibrary.Helpers.IBraintreeConfiguration">
+            <summary>
+            IBraintreeConfiguration Interface
+            Holds method signatures which may be used to implement BraintreeConfiguration.
+            </summary>
+        </member>
+        <member name="T:ReadAllLibrary.Models.BookCopy">
+            <summary>
+            Model class for BookCopy
+            Holds properties:
+            int BookCopyID
+            int BookCopyStatus
+            </summary>
+        </member>
+        <member name="T:ReadAllLibrary.Models.Fine">
+            <summary>
+            Model class for Fine
+            Holds properties:
+            int FineId
+            decimal Amount
+            DateTime Issued
+            DateTime Paid
+            </summary>
+        </member>
+        <member name="T:ReadAllLibrary.Models.Payment">
+            <summary>
+            Model class for Payments
+            holds properties:
+            int PaymentID
+            DateTime DatePaid
+            string CardNumber
+            string ExpiryMonth
+            string ExpiryYear
+            stringName
+            string CardAddress
+            string CardCity
+            string CardPostCode
+            PaymentMethod PaymentMethod
+            string PaypalPaymentId
+            </summary>
+        </member>
+        <member name="T:ReadAllLibrary.Models.PaymentMethod">
+            <summary>
+            enum which represents possible payment types
+            Card or Paypal.
+            </summary>
+        </member>
+        <member name="T:ReadAllLibrary.Models.Publisher">
+            <summary>
+            Model class for publisher
+            holds properties:
+            int Publisher Id
+            string PublisherName
+            </summary>
+        </member>
+        <member name="T:ReadAllLibrary.Models.ReservationList">
+            <summary>
+            Model class for ReservationList
+            holds properties:
+            int ReservationListId
+            int BookId
+            </summary>
+        </member>
+        <member name="T:ReadAllLibrary.Models.ReservationListUser">
+            <summary>
+            Model class for ReservationListUser
+            Holds the information about each individual item in a reservation list
+            includes properties:
+            int ReservationListId
+            string UserId
+            DateTime DateAddedToList
+            </summary>
+        </member>
+        <member name="T:ReadAllLibrary.Models.ShippingDetails">
+            <summary>
+            Model class which holds ShippingDetails properties
+            holds properties:
+            int ShippingDetailsId
+            string Address
+            string City
+            string PostCode
+            bool FastShipping
+            </summary>
+        </member>
+        <member name="T:ReadAllLibrary.Models.Supplier">
+            <summary>
+            Model class for supplier
+            Holds properties:
+            int SupplierId
+            string SupplierName
+            </summary>
+        </member>
+        <member name="T:ReadAllLibrary.Models.Book">
+            <summary>
+            Model Class for Book entity in Database
+            Contains properties:
+            int BookId
+            string BookTitle
+            String Description
+            Genre Genre
+            Category Category
+            string Author
+            string ArtWorkURL
+            int PublisherID
+            int SupplierId
+            DateTime Added
+            </summary>
+        </member>
+        <member name="T:ReadAllLibrary.Models.Genre">
+            <summary>
+            Enum for Genre types
+            </summary>
+        </member>
+        <member name="T:ReadAllLibrary.Models.Category">
+            <summary>
+            Enum for Category Types
+            </summary>
+        </member>
+        <member name="T:ReadAllLibrary.Models.Cart">
+            <summary>
+            Model Class for Cart
+            Holds properties:
+            int CopyId
+            string CartId
+            int BookId
+            int Count
+            DateTime DateCreated
+            </summary>
+        </member>
+        <member name="T:ReadAllLibrary.Models.ApplicationUser">
+            <summary>
+            Model class holding user data
+            Holds properties:
+            string Address
+            string City
+            string State
+            string FName
+            string LName
+            string PostCode
+            bool CanPlaceOrder
+            bool AccountRestricted
+            string Role
+            string DisplayAddress
+            </summary>
+        </member>
+        <member name="T:ReadAllLibrary.Models.LibraryAppContext">
+            <summary>
+            LibraryAppContext class, implements IdentityDBContext
+            Handles database initialisation and Database Context
+            </summary>
+        </member>
+        <member name="T:ReadAllLibrary.Models.Order">
+            <summary>
+            Model class for Order
+            holds properties:
+            int OrderId
+            decimal Total
+            DateTime OrderDate
+            DateTime ReturnDate
+            string UserOrderId
+            int ShippingDetailsId
+            int FineRefId
+            int PaymentRefId
+            int OrderStatus
+            </summary>
+        </member>
+        <member name="T:ReadAllLibrary.Models.OrderLine">
+            <summary>
+            Orderline model class
+            holds navigation properties:
+            int OrderId
+            intBookId
+            </summary>
+        </member>
+        <member name="T:ReadAllLibrary.Models.Review">
+            <summary>
+            Model class for Review
+            Holds properties:
+            int Id
+            string Body
+            DateTime CreatedAt
+            string Author
+            int Stars
+            int BookId
+            </summary>
+        </member>
+        <member name="T:ReadAllLibrary.ASPSMSX2.vouchers">
+            <remarks/>
+        </member>
+        <member name="P:ReadAllLibrary.ASPSMSX2.vouchers.VoucherCode">
+            <remarks/>
+        </member>
+        <member name="P:ReadAllLibrary.ASPSMSX2.vouchers.Remark">
+            <remarks/>
+        </member>
+        <member name="P:ReadAllLibrary.ASPSMSX2.vouchers.Credits">
+            <remarks/>
+        </member>
+        <member name="P:ReadAllLibrary.ASPSMSX2.vouchers.Created">
+            <remarks/>
+        </member>
+        <member name="P:ReadAllLibrary.ASPSMSX2.vouchers.Redeemed">
+            <remarks/>
+        </member>
+        <member name="T:ReadAllLibrary.ViewModels.BookReportViewModel">
+            <summary>
+            BookReportViewModel Class which is used in the book report view
+            Holds properties:
+            int BookId
+            string BookTitle
+            string Description
+            int ReviewCount
+            Category Category
+            Genre Genre
+            string PublisherName
+            </summary>
+        </member>
+        <member name="T:ReadAllLibrary.ViewModels.ConfirmAddressViewModel">
+            <summary>
+            ConfirmAddressViewModel class which is used in the ConfirmAddress View
+            Holds properties which are required to be displayed within the view
+            properties:
+            string Address
+            string City
+            string Postcode
+            bool FastShipping
+            bool UseSavedAddress
+            decimal Amount
+            </summary>
+        </member>
+        <member name="T:ReadAllLibrary.ViewModels.ListAllUsers">
+            <summary>
+            ListAllUsers class which is used in the ListAllUsers View
+            Holds properties which are required to be displayed within the view
+            properties:
+            string id
+            string UserName
+            string LName
+            string FName
+            string Address
+            String City
+            string Postcode
+            </summary>
+        </member>
+        <member name="T:ReadAllLibrary.ViewModels.BookViewModel">
+            <summary>
+            BookViewModel Class which is used in the book details view
+            Holds properties:
+            int BookId
+            string Title
+            int ReviewCount
+            string Category
+            string Genre
+            string ArtworkUrl
+            string Description
+            Review Review
+            IEnumberable Reviews
+            </summary>
+        </member>
+        <member name="T:ReadAllLibrary.ViewModels.HomePageViewModel">
+            <summary>
+            HomePageViewModel class which is used in the Home page View
+            Holds properties which are required to be displayed within the view
+            properties:
+            int bookId
+            string BookTitle
+            string Description
+            string Author
+            int ReviewCount
+            string ArtworkURL
+            DateTime Added
+            Book book
+            int AvgStars
+            </summary>
+        </member>
+        <member name="T:ReadAllLibrary.ViewModels.OrderReportViewModel">
+            <summary>
+            OrderReportViewModel class which is used in the OrderReport View
+            Holds properties which are required to be displayed within the view
+            properties:
+            int OrderId
+            DateTime OrderDate
+            decimal Amount
+            string UserId
+            int OrderCount
+            </summary>
+        </member>
+        <member name="T:ReadAllLibrary.ViewModels.PartialTestViewModel">
+            <summary>
+            PartialTestViewModel Class which is used to hold properties relevant to Details view
+            Properties:
+            List Reviews
+            Review Review
+            Book book
+            int ReviewCount
+            int AvgStars
+            ApplicationUser User
+            </summary>
+        </member>
+        <member name="T:ReadAllLibrary.ViewModels.PayPalViewModel">
+             <summary>
+             PayPalViewModel class which is used in the PayPal Views
+             Holds properties which are required to be displayed within the view
+             properties:
+             double amount
+             Fine Fine
+            </summary>
+        </member>
+        <member name="T:ReadAllLibrary.ViewModels.ReservationListViewModel">
+             <summary>
+             ReservationListViewModel class which is used in the reservationlist View
+             Holds properties which are required to be displayed within the view
+             properties:
+             string bookTitle
+             DateTime? DateReserved
+             int Status
+             Book book
+            </summary>
+        </member>
+        <member name="T:ReadAllLibrary.ViewModels.ReviewViewModel">
+             <summary>
+             ReviewViewModel class which is used in the Review Views
+             Holds properties which are required to be displayed within the view
+             properties:
+             string Body
+            DateTime? CreatedAt
+             string Author
+             int Starts
+             int Id
+            </summary>
+        </member>
+        <member name="T:ReadAllLibrary.ViewModels.ShoppingCartRemoveViewModel">
+             <summary>
+             ShoppingCartRemoveViewModel class which is used in the Shoppingcart View when item is removed
+             Holds properties which are required to be displayed within the view
+            </summary>
+        </member>
+        <member name="T:ReadAllLibrary.ViewModels.ShoppingCartViewModel">
+             <summary>
+             ShoppingCartViewModel class which is used in the ShoppingCart Views
+             Holds properties which are required to be displayed within the view
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "T:ReadAllLibrary.ViewModels.StripeChargeModel" -->
+        <member name="T:ReadAllLibrary.ViewModels.SupplierReportViewModel">
+             <summary>
+             SupplierReportViewModel class which is used in the SupplierReport View
+             Holds properties which are required to be displayed within the view
+            </summary>
+        </member>
+    </members>
+</doc>

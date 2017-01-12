@@ -1,0 +1,149 @@
+﻿@model ReadAllLibrary.ViewModels.StripeChargeModel
+
+@{
+    ViewBag.Title = "Stripe Tutorial";
+}
+
+<h2>Pay By Card</h2>
+
+
+<p style="color:red">@ViewBag.Error</p>
+
+@using (Html.BeginForm("Charge", "Manage", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "frmCharge" }))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CardNumber)
+        </dt>
+
+        <dd>
+            @Html.TextBoxFor(model => model.CardNumber, new { id = "txtCardNumber" })
+            @Html.ValidationMessageFor(model => model.CardNumber, "", new { @class = "text-danger" })
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cvv)
+        </dt>
+
+        <dd>
+            @Html.TextBoxFor(model => model.Cvv, new { id = "txtCvc" })
+            @Html.ValidationMessageFor(model => model.Cvv, "", new { @class = "text-danger" })
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ExpiryMonth)
+        </dt>
+
+        <dd>
+            @Html.TextBoxFor(model => model.ExpiryMonth, new { id = "txtExpiryMonth" })
+            @Html.ValidationMessageFor(model => model.ExpiryMonth, "", new { @class = "text-danger" })
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ExpiryYear)
+        </dt>
+
+        <dd>
+            @Html.TextBoxFor(model => model.ExpiryYear, new { id = "txtExpiryYear" })
+            @Html.ValidationMessageFor(model => model.ExpiryYear, "", new { @class = "text-danger" })
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CardHolderName)
+        </dt>
+
+        <dd>
+            @Html.TextBoxFor(model => model.CardHolderName)
+            @Html.ValidationMessageFor(model => model.CardHolderName, "", new { @class = "text-danger" })
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Amount)
+        </dt>
+
+        <dd>
+            @Model.Amount.ToString("0.00")
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+
+        <dd>
+            @Html.EditorFor(model => model.Address)
+            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AddressCity)
+        </dt>
+
+        <dd>
+            @Html.EditorFor(model => model.AddressCity)
+            @Html.ValidationMessageFor(model => model.AddressCity, "", new { @class = "text-danger" })
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AddressPostcode)
+        </dt>
+
+        <dd>
+            @Html.EditorFor(model => model.AddressPostcode)
+            @Html.ValidationMessageFor(model => model.AddressPostcode, "", new { @class = "text-danger" })
+        </dd>
+
+
+    </dl>
+    <p>
+        @Html.HiddenFor(model => model.Token, new { id = "hdnToken" })
+        @Html.HiddenFor(model => model.Amount)
+        @Html.ActionLink("Confirm", "Charge", null, new { id = "btnCharge" })
+    </p>
+}
+
+
+@section Scripts {
+
+    <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+
+    <script type="text/javascript">
+            $('document').ready(function () {
+                Stripe.setPublishableKey('pk_test_QraRPQwizZnQkcAW5jn7A6S5');
+
+                $('#btnCharge').on('click', function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    Stripe.card.createToken({
+                        number: $('#txtCardNumber').val(),
+                        cvc: $('#txtCvc').val(),
+                        exp_month: $('#txtExpiryMonth').val(),
+                        exp_year: $('#txtExpiryYear').val()
+                    }, stripeResponseHandler);
+                });
+
+                function stripeResponseHandler(status, response) {
+                    var $form = $('#frmCharge');
+
+                    if (response.error) {
+                        // Show the errors on the form
+                        alert(response.error.message);
+                    } else {
+                        // response contains id and card, which contains additional card details
+                        var token = response.id;
+                        // Insert the token into the form so it gets submitted to the server
+                        $('#hdnToken').val(token);
+                        // and submit
+                        $form.get(0).submit();
+                    }
+                }
+            });
+
+    </script>
+}
+
+
+

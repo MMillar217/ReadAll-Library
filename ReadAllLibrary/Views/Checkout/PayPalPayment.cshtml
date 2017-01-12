@@ -1,0 +1,31 @@
+﻿@model ReadAllLibrary.ViewModels.PayPalViewModel
+@{
+    ViewBag.Title = "PayPalPayment";
+}
+
+
+<h2>Pay With PayPal</h2>
+
+<form id="checkout" method="post" action="@Url.Action("CreatePaypalPayment", "Checkout")">
+    <div id="payment-form"></div>
+    <br>
+    <div class="input-group">
+
+        @Html.HiddenFor(m => m.Amount)
+
+        <div class="input-group-btn">
+            <button role="submit" class="btn  btn-primary btn-block" id="submit">Make Payment</button>
+        </div>
+    </div>
+</form>
+
+
+@section Scripts {
+    <script src="https://js.braintreegateway.com/v2/braintree.js"></script>
+    <script>
+    braintree.setup("@ViewBag.ClientToken", "dropin", {
+        container: "payment-form",
+        form: 'checkout'
+    });
+    </script>
+    }

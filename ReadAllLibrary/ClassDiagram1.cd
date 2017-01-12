@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ReadAllLibrary.Models.Cart" Collapsed="true">
+    <Position X="4" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAQABAAAAAAAQAAAAAEAAAAAAEAAAACAA=</HashCode>
+      <FileName>Models\Cart.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ReadAllLibrary.Models.Book" Collapsed="true">
+    <Position X="0.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgACEAEAAAgAIIQiAIAAEAAAQAAQQAAAAAAAAAgCAA=</HashCode>
+      <FileName>Models\Book.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ReadAllLibrary.Models.BookCopy" Collapsed="true">
+    <Position X="2.25" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAQAAAAAAAABAAAAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\BookCopy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ReadAllLibrary.Models.Fine" Collapsed="true">
+    <Position X="5.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEBAAABAAAgAAAAAAAAAACAAAAAAAAAAAAAAAIAAAA=</HashCode>
+      <FileName>Models\Fine.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ReadAllLibrary.Models.Order" Collapsed="true">
+    <Position X="0.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>HAAJAAAAAAACEAAAAIAAAgAAACAAQCQABAAAAAAAAAA=</HashCode>
+      <FileName>Models\Order.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ReadAllLibrary.Models.OrderLine" Collapsed="true">
+    <Position X="2.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAEACAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\OrderLine.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ReadAllLibrary.Models.Payment" Collapsed="true">
+    <Position X="4" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAEFAAAAACAAAAAAAAAAAAQAEAEAAhAAABAAAAAAEIA=</HashCode>
+      <FileName>Models\Payment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ReadAllLibrary.Models.Publisher" Collapsed="true">
+    <Position X="5.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAIgQAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Publisher.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ReadAllLibrary.Models.ReservationList" Collapsed="true">
+    <Position X="0.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAAIBAAAAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Models\ReservationList.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ReadAllLibrary.Models.ReservationListUser" Collapsed="true">
+    <Position X="2.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAIAQAAAAAAgAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\ReservationListUser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ReadAllLibrary.Models.Review" Collapsed="true">
+    <Position X="4" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAADCABAAAAAAAAAgCABQAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Review.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ReadAllLibrary.Models.ShippingDetails" Collapsed="true">
+    <Position X="5.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAIAAAAAAAAAAAAACACAAAAgAAAABA=</HashCode>
+      <FileName>Models\ShippingDetails.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ReadAllLibrary.Models.Supplier" Collapsed="true">
+    <Position X="0.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAIAAAAAgAAA=</HashCode>
+      <FileName>Models\Supplier.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

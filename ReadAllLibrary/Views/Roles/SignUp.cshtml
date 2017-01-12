@@ -1,0 +1,163 @@
+﻿
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-md-3">
+        </div>
+      @using (Html.BeginForm("MembershipChoice", "Roles",  new { choice = 0 },FormMethod.Post))
+      {
+       
+        <div class="col-xs-12 col-md-3">
+            <div class="panel panel-success">
+                <div class="cnrflash">
+                    <div class="cnrflash-inner">
+                        <span class="cnrflash-label">
+                            MOST
+                            <br>
+                            POPULAR
+                        </span>
+                    </div>
+                </div>
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Unlimited Plan
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <div class="the-price">
+                       
+                        <p><b><u>No limit</u> on the number of titles you receive each month. As soon as we receive your returns, we'll send your next order.</b> </p>
+                        <br>
+                    </div>
+                    <table class="table">
+                        <tr>
+                            <td>
+                                <b>Paperback Books</b>
+                                <ul>
+                                    <li>
+                                     2 at a time £8.00
+                                    </li>
+                                    <li>
+                                        4 at a time £10.00
+                                    </li>
+                                    <li>
+                                        6 at a time £13.50
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr class="active">
+                            <td>
+                                <b>Audio Books</b>
+                                <ul>
+                                    <li>
+                                        1 at a time £9.00
+                                    </li>
+                                    <li>
+                                        4 at a time £14.00
+                                    </li>
+                                    <li>
+                                        6 at a time £18.00
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+
+                        <tr class="active">
+                            <td>
+                                <b>eBooks</b>
+                                <ul>
+                                    <li>
+                                        2 at a time £4.00
+                                    </li>
+                                    <li>
+                                        4 at a time £6.00
+                                    </li>
+                                    <li>
+                                        6 at a time £9.50
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                       
+                    </table>
+                </div>
+             
+                    <div class="panel-footer">
+                        <button class="btn btn-success" role="button">Sign up</button>
+                    </div>
+                
+            </div>
+        </div>
+
+      }
+
+@using (Html.BeginForm("MembershipChoice", "Roles", new { choice = 1 }, FormMethod.Post))
+{
+        <div class="col-xs-12 col-md-3">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Limited Plan
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <div class="the-price">
+                        <p><b><u>Limited</u> number of titles each month. As soon as we receive your returns, we'll queue up your next order and ship on your anniversary date.</b> </p>
+                    </div>
+                    <table class="table">
+                        <tr>
+                            <td>
+                                <b>Paperback Books</b>
+                                <ul>
+                                    <li>
+                                        2 at a time £6.00
+                                    </li>
+                                    <li>
+                                        4 at a time £8.00
+                                    </li>
+                                    <li>
+                                        6 at a time £11.00
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr class="active">
+                            <td>
+                                <b>Audio Books</b>
+                                <ul>
+                                    <li>
+                                        1 at a time £7.00
+                                    </li>
+                                    <li>
+                                        4 at a time £12.00
+                                    </li>
+                                    <li>
+                                        6 at a time £17.00
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr class="active">
+                            <td>
+                                <b style="color:red">No Access To eBooks</b>
+                                <ul>
+                                    <li><strong>
+                                            Only Unlimited Members have access to our eBook collection.
+                                        </strong>
+                                    </li>
+                                    
+                                </ul>
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+                <div class="panel-footer">
+                    <button class="btn btn-success" role="button">Sign up</button>
+                </div>
+            </div>
+        </div>
+}
+    </div>
+</div>

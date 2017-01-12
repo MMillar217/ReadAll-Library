@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewBag.Title = "ChooseFinePaymentMethod";
+}
+
+<h2>Choose Payment Type</h2>
+
+<p>How would you like to pay?</p>
+
+@using (Html.BeginForm("PayPalPayment", "Manage"))
+{
+
+    <button class="btn btn-primary">Paypal</button>
+}
+
+<hr />
+
+@using (Html.BeginForm("ChargeView", "Manage", FormMethod.Get))
+{
+    <button class="btn btn-primary">Card</button>
+}

@@ -1,0 +1,57 @@
+﻿@model IEnumerable<ReadAllLibrary.ViewModels.ReservationListViewModel>
+@{
+    ViewBag.Title = "Reservation List";
+}
+
+<h2>Reservation List</h2>
+
+<table class="table">
+    <tr>
+     
+
+        <th>
+            Book Title
+        </th>
+
+        <th>
+            Date Reserved
+        </th>
+
+        <th>
+            Status
+        </th>
+
+
+    </tr>
+    <tr>
+        @foreach (var b in Model)
+        {
+
+            <td>
+                @b.book.BookTitle
+            </td>
+            <td>
+                @b.DateReserved
+            </td>
+            switch (b.book.Status)
+            {
+                case 1:
+                    <td>
+                        Reserved
+                    </td>
+                    break;
+                case 2:
+                    <td>
+                        Ready To Order
+                    </td>
+                    <td>
+                        @Html.ActionLink("Order Now", "AddToCart", new {id = b.book.BookId }, null)
+                    </td>
+                    break;
+
+            }
+
+        }
+
+    </tr>
+</table>

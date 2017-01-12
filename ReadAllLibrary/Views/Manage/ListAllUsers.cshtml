@@ -1,0 +1,84 @@
+﻿@model PagedList.IPagedList<ReadAllLibrary.ViewModels.ListAllUsers>
+
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "ListAllUsers";
+}
+
+<h2>All Members</h2>
+
+@using (Html.BeginForm())
+            {
+    <p>
+        Find member by username: @Html.TextBox("SearchString")
+        <input type="submit" value="Search" />
+    </p>
+}
+<table class="table">
+    <tr>
+
+        <th>
+            Username
+        </th>
+        
+        <th>
+            Address
+        </th>
+        <th>
+           City
+        </th>
+        <th>
+            Postcode
+        </th>
+        <th>
+            First Name
+        </th>
+        <th>
+            Last Name
+        </th>
+    
+        
+
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.City)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Postcode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LName)
+            </td>
+           
+            <td>
+                @Html.ActionLink("Delete", "DeleteUser", "Manage", new {id = item.Id}, null)
+            </td>
+            <td>
+                @Html.ActionLink("View Customer Report", "CustomerReport", "Manager", new {id = item.Id}, null)
+            </td>
+        </tr>
+    }
+
+</table>
+
+<div>
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+    @Html.PagedListPager(Model, page => Url.Action("ListAllUsers",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+</div>

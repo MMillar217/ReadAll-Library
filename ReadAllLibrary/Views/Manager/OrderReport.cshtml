@@ -1,0 +1,88 @@
+﻿@model IEnumerable<ReadAllLibrary.ViewModels.OrderReportViewModel>
+@{
+    ViewBag.Title = "OrderReport";
+}
+<br>
+<h2>Order Report</h2>
+
+@using (Html.BeginForm())
+{
+    <p>
+        Find Order by OrderId: @Html.TextBox("SearchString")
+        <input type="submit" value="Search" />
+    </p>
+}
+
+@using (Html.BeginForm("ExportOrderData", "Manager", new { searchString = ViewBag.CurrentFilter }))
+{
+
+    <button class="btn-btn-primary">Export to Excel</button>
+}
+
+<br />
+
+@using (Html.BeginForm("GenerateOrderPDF", "Manager", new { searchString = ViewBag.CurrentFilter }))
+{
+
+    <button class="btn-btn-primary">Generate PDF</button>
+}
+    <br />
+
+    <table class="table">
+        <tr>
+            <th>
+              Order Number
+               
+            </th>
+            <th>
+                Date of Invoice
+            </th>
+
+            <th>
+                Order Amount
+            </th>
+            <th>
+                Customer Id
+            </th>
+            <th>
+                Overall totals by customer/order
+            </th>
+          
+            
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(m => item.OrderId)
+                    @Html.HiddenFor(m => item.OrderId)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.OrderDate)
+                    @Html.HiddenFor(m => item.OrderDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.Amount)
+                    @Html.HiddenFor(m => item.Amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.UserId)
+                    @Html.HiddenFor(m => item.UserId)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.OrderCount)
+                    @Html.HiddenFor(m => item.OrderCount)
+                </td>
+                
+            </tr>
+
+
+        }
+
+    </table>
+
+
+    <div class="page-break"><br /></div>
+

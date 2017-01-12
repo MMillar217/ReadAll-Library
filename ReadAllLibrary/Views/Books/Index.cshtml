@@ -1,0 +1,185 @@
+﻿@model PagedList.IPagedList<ReadAllLibrary.Models.Book>
+
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+
+@{
+    ViewBag.Title = "Index";
+    bool permission = Convert.ToBoolean(ViewData["Permission"]);
+}
+
+<div id="wrapper">
+    <div id="sidebar-wrapper">
+        <div class="sidebar-nav">
+
+            @if (permission)
+            {
+                <p>
+                    @Html.ActionLink("Add Book", "Create")
+                </p>
+            }
+            else
+            {
+                <br>
+            }
+            @using (Html.BeginForm())
+            {
+                <p>
+                    Find by title: @Html.TextBox("SearchString")
+                    <input type="submit" value="Search" />
+                </p>
+            }
+
+            <h4>Filter by category</h4>
+            <div class="list-group">
+
+                @Html.ActionLink("Paperback", "Index", "Books", new { categoryFilter = 0 }, new { @class = "list-group-item" })
+                @Html.ActionLink("Audio Book", "Index", "Books", new { categoryFilter = 1 }, new { @class = "list-group-item" })
+                @Html.ActionLink("eBook", "Index", "Books", new { categoryFilter = 2 }, new { @class = "list-group-item" })
+
+            </div>
+
+            <hr />
+
+            <h4>Filter by genre</h4>
+            <div class="list-group">
+
+                @Html.ActionLink("Horror", "Index", "Books", new { genreFilter = 0 }, new { @class = "list-group-item" })
+                @Html.ActionLink("SciFi", "Index", "Books", new { genreFilter = 1 }, new { @class = "list-group-item" })
+                @Html.ActionLink("Factual", "Index", "Books", new { genreFilter = 2 }, new { @class = "list-group-item" })
+                @Html.ActionLink("Mystery", "Index", "Books", new { genreFilter = 3 }, new { @class = "list-group-item" })
+                @Html.ActionLink("Fantasy", "Index", "Books", new { genreFilter = 4 }, new { @class = "list-group-item" })
+                @Html.ActionLink("Romance", "Index", "Books", new { genreFilter = 5 }, new { @class = "list-group-item" })
+                @Html.ActionLink("Educational", "Index", "Books", new { genreFilter = 6 }, new { @class = "list-group-item" })
+
+            </div>
+
+            <h4>Sort by: </h4>
+            <div class="list-group">
+                @if (TempData["currentSort"].ToString().Equals("name_desc") || TempData["currentSort"].ToString().Equals("genre_desc") || TempData["currentSort"].ToString().Equals("date_desc"))
+            {
+                    @Html.ActionLink("Name", "Index", "Books", new { sortOrder = "" }, new { @class = "list-group-item" })
+                    @Html.ActionLink("Genre", "Index", "Books", new { sortOrder = "genre_asc" }, new { @class = "list-group-item" })
+                    @Html.ActionLink("Date Added", "Index", "Books", new { sortOrder = "date_asc" }, new { @class = "list-group-item" })
+                }
+                else
+                {
+                    @Html.ActionLink("Name", "Index", "Books", new { sortOrder = "name_desc" }, new { @class = "list-group-item" })
+                    @Html.ActionLink("Genre", "Index", "Books", new { sortOrder = "genre_desc" }, new { @class = "list-group-item" })
+                    @Html.ActionLink("Date Added", "Index", "Books", new { sortOrder = "date_desc" }, new { @class = "list-group-item" })
+
+                }
+            </div>
+
+            @Html.ActionLink("Clear filters", "Index", "Books", new { categoryFilter = -1, genreFilter = -1, searchString = "" }, null)
+
+
+            <div>
+                Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+                @Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, currentGenre = ViewBag.CurrentGenre,
+        currentCategory = ViewBag.CurrentCategory}))
+            </div>
+
+        </div>
+    </div>
+
+    <div id="page-content-wrapper">
+        <div class="page-content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+
+                        @if (Model != null)
+            {
+
+                foreach (var r in Model)
+                {
+
+                    int avgstars = 0;
+                    int totalStars = 0;
+
+                    foreach (var z in r.Reviews)
+                    {
+                        totalStars += z.stars;
+                    }
+
+                    if (r.Reviews.Count > 0)
+                    {
+                        avgstars = totalStars / r.Reviews.Count;
+                    }
+
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="thumbnail">
+                                <img src="http://placehold.it/420x250" alt="">
+                                <div class="caption">
+                                    @if (r.StockLevel > 0)
+                                    {
+                                        <h4 class="pull-right" style="color:forestgreen">Available</h4>
+                                    }
+                                    else
+                                    {
+                                        <h4 class="pull-right" style="color:red">Reserve Now</h4>
+                                    }
+                                    <h4>
+                                        @Html.ActionLink(r.BookTitle, "Details", "Books", new { id = r.BookId }, null)
+                                    </h4>
+                                    <p>@r.Description... <br /> <strong>Author: @r.Author</strong>  |  <strong>Genre:@r.Genre</strong> | <strong>Category:@r.Category</strong></p>
+                                    <h4 class="pull-right" style="color:forestgreen">@r.Reviews.Count Reviews</h4>
+                                </div>
+                                <div class="ratings">
+                                    <p class="pull-right"></p>
+                                    <p>
+                                        @for (int i = 0; i < avgstars; i++)
+                                        {
+                                            <span class="glyphicon glyphicon-star"></span>
+                                        }
+                                        @{int s = avgstars; int rest = 5 - s;
+                                            for (int i = 0; i < rest; i++)
+                                            {
+                                                <span class="glyphicon glyphicon-star-empty"></span>
+                                            }
+                                        }
+                                    </p>
+                                    @if (permission)
+                                    {
+                                        <p>
+                                            @Html.ActionLink("Edit", "Edit", "Books", new { id = r.BookId }, null)
+                                            &nbsp;| &nbsp;
+                                            @Html.ActionLink("Delete", "Delete", "Books", new { id = r.BookId }, null)
+                                        </p>
+                                    }
+
+                                </div>
+
+
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+                                                }
+
+                                            }
+
+                        <br />
+                    </div>
+
+                    </div>
+                    </div>
+
+                        </div>
+
+                    </div>
+    </div>
+
+
+
+
